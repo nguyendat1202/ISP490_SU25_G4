@@ -4,11 +4,6 @@
     Author     : NGUYEN MINH
 --%>
 
-<%-- 
-    Document   : login
-    Created on : May 29, 2025, 10:48:23 AM
-    Author     : NGUYEN MINH
---%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>

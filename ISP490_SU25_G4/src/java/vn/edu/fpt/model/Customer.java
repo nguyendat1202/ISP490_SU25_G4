@@ -8,6 +8,6 @@ package vn.edu.fpt.model;
  *
  * @author PC
  */
-public class UserModel {
+public class Customer {
     
 }

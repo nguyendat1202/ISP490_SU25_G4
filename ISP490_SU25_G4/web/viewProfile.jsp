@@ -1,14 +1,15 @@
 <%-- 
-    Document   : changePassword
-    Created on : June 4, 2025, 11:28:23 PM
-    Author     : minhnhnhe172717
+    Document   : viewProfile
+    Created on : Jun 4, 2025, 11:03:31 AM
+    Author     : NGUYEN MINH
 --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vi">
     <head>
         <meta charset="UTF-8" />
-        <title>Đổi mật khẩu</title>
+        <title>Dashboard of DPCRM</title>
         <style>
             :root {
                 --base-white: #ffffff;
@@ -134,17 +135,18 @@
                 color: var(--color-primary);
                 background: #E6F4F5;
             }
-
             /* CHỖ ĐỔI MÀU VÀ KÍCH THƯỚC ICON TỔNG QUẢN */
             .menu-items > .menu-item:first-child {
                 color: var(--color-text-tertiary);
             }
             .menu-items > .menu-item:first-child .icon-container svg {
                 stroke: currentColor !important; /* lấy màu từ color */
-                width: 28px !important;
-                height: 28px !important;
+                width: 26px !important;
+                height: 26px !important;
             }
-
+            .menu-item:hover .icon-container svg {
+                stroke: var(--color-primary);
+            }
             .menu-item.active {
                 color: var(--color-primary);
                 font-weight: 600;
@@ -291,6 +293,13 @@
                 padding-left: 32px;
                 margin-top: 8px;
             }
+            .submenu-item.active {
+                background: #D0EBEF; /* nền xanh nhẹ */
+                color: var(--color-primary); /* chữ xanh */
+            }
+            .submenu-item.active .icon-container svg {
+                stroke: var(--color-primary) !important; /* icon xanh */
+            }
             .submenu.active {
                 display: flex;
             }
@@ -312,12 +321,12 @@
                 border: none; /* bỏ viền */
                 transition: background 0.3s ease, color 0.3s ease;
             }
-            .submenu-item.active {
-                background: #D0EBEF; /* nền xanh nhẹ */
-                color: var(--color-primary); /* chữ xanh */
+            .submenu-item .icon-container svg {
+                stroke: var(--color-text-tertiary) !important; /* icon màu xám nhạt */
             }
-            .submenu-item.active .icon-container svg {
-                stroke: var(--color-primary) !important; /* icon xanh */
+            .submenu-item:hover {
+                background: #E6F4F5; /* nền hover nhẹ xanh nhạt */
+                color: var(--color-primary); /* chữ xanh khi hover */
             }
 
             /* Icon for arrow in parent menu */
@@ -333,6 +342,7 @@
                 transform: rotate(180deg);
                 transition: transform 0.3s ease;
             }
+
         </style>
     </head>
     <body>
@@ -351,12 +361,12 @@
                 </div>
                 <div class="menu-items">
                     <div class="menu-item " role="menuitem" aria-current="page">
-                        <div class="icon-container" aria-hidden="true" style="color: var(--color-text-tertiary);">
-                            <svg width="28" height="28" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="2" width="6" height="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                            <rect x="12" y="2" width="6" height="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                            <rect x="2" y="12" width="6" height="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                            <rect x="12" y="12" width="6" height="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                        <div class="icon-container" aria-hidden="true">
+                            <svg width="10" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="var(--color-primary)" stroke-width="1.5">
+                            <rect x="2" y="2" width="6" height="6" stroke="var(--color-primary)" stroke-width="1.5" fill="none"/>
+                            <rect x="12" y="2" width="6" height="6" stroke="var(--color-primary)" stroke-width="1.5" fill="none"/>
+                            <rect x="2" y="12" width="6" height="6" stroke="var(--color-primary)" stroke-width="1.5" fill="none"/>
+                            <rect x="12" y="12" width="6" height="6" stroke="var(--color-primary)" stroke-width="1.5" fill="none"/>
                             </svg>
                         </div>
                         <span class="menu-text">Tổng quản</span>
@@ -425,17 +435,16 @@
                         </div>
                     </div>
                     <div id="personalInfoSubmenu" class="submenu" role="menu">
-                        <div class="submenu-item " role="menuitem" tabindex="0">
+                        <div class="submenu-item active" role="menuitem" tabindex="0">
                             <div class="icon-container" aria-hidden="true">
-                                <svg width="20" height="20" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg" stroke="var(--color-text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="var(--color-text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="8" cy="8" r="6"/>
                                 <line x1="13" y1="13" x2="18" y2="18"/>
                                 </svg>
                             </div>
                             Xem thông tin cá nhân
                         </div>
-                        <div class="submenu-item active" role="menuitem" tabindex="0">
+                        <div class="submenu-item" role="menuitem" tabindex="0">
                             <div class="icon-container" aria-hidden="true">
                                 <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="var(--color-text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="5" y="9" width="10" height="7" rx="2"/>
@@ -465,7 +474,7 @@
             </nav>
             <main class="main-content" role="main">
                 <header class="header-container">
-                    <h1 class="header-title">Đổi mật khẩu</h1>
+                    <h1 class="header-title">Xem chi tiết thông tin cá nhân</h1>
                     <div class="notification-container" title="Thông báo" role="button" aria-label="Thông báo mới 4">
                         <div class="notification-icon" aria-hidden="true">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -476,36 +485,155 @@
                         <div class="notification-badge">4</div>
                     </div>
                 </header>
-                <section class="content-wrapper">
-                    <div class="content-inner">
-                        <!-- Đây là phần đổi mật khẩu bạn cần chèn -->
-                        <div style="width: 860px; height: 280px; background: white; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset; border-radius: 12px; outline: 1px #E5E5E5 solid; outline-offset: -1px; padding: 24px; position: relative;">
-                            <div style="text-align: center; color: black; font-size: 30px; font-family: Adamina; font-weight: 400; line-height: 18px; margin-bottom: 32px;">
-                                Đổi mật khẩu
+                <section style="width: 100%; height: calc(100vh - 84px); position: relative; background: white; overflow-y: auto; padding-bottom: 24px;">
+                    <img style="width: 170px; height: 170px; left: 5px; top: 6.50px; position: absolute; border-radius: 12px" src="https://placehold.co/170x170" alt="Profile Image" />
+
+                    <div style="width: 170px; padding: 10px; left: 5px; top: 195.50px; position: absolute; background: #E5E5E5; border-radius: 12px; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
+                        <div style="color: #4D4D4D; font-size: 14px; font-family: SVN-Gilroy; font-weight: 700; line-height: 18px; word-wrap: break-word">Chọn ảnh</div>
+                    </div>
+
+                    <div style="width: 838px; height: 227px; left: 190px; top: 6.50px; position: absolute; background: white; overflow: hidden; border-radius: 12px; outline: 1px #E5E5E5 solid; outline-offset: -1px">
+                        <div style="left: 24px; top: 24px; position: absolute; color: black; font-size: 20px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">Thông tin khởi tạo</div>
+                        <div style="width: 371px; left: 24px; top: 70px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: inline-flex">
+                            <div style="width: 371px; justify-content: flex-start; align-items: center; gap: 82px; display: inline-flex">
+                                <div style="color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">Mã nhân viên</div>
+                                <div style="width: 184px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
+                                    <div style="color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">Mã nhân viên tự động</div>
+                                </div>
                             </div>
-                            <div style="display: flex; gap: 20px;">
-                                <img src="img/logo.png" alt="Ảnh đại diện" style="border-radius: 12px; width: 200px; height: 200px;" />
-                                <form style="flex-grow: 1;">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                                        <label style="font-family: Adamina; font-size: 16px; line-height: 18px; color: black;">Mật khẩu hiện tại</label>
-                                        <input type="password" name="currentPassword" value="abc" style="width: 294px; border: none; border-bottom: 1px solid #E5E5E5; font-family: Adamina; font-size: 16px; line-height: 18px; color: black; outline: none;" readonly />
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                                        <label style="font-family: Adamina; font-size: 16px; line-height: 18px; color: black;">Mật khẩu mới</label>
-                                        <input type="password" name="newPassword" value="0916001234" style="width: 294px; border: none; border-bottom: 1px solid #E5E5E5; font-family: Adamina; font-size: 16px; line-height: 18px; color: black; outline: none;" />
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                                        <label style="font-family: Adamina; font-size: 16px; line-height: 18px; color: black;">Nhập lại mật khẩu mới</label>
-                                        <input type="password" name="confirmNewPassword" value="abc" style="width: 294px; border: none; border-bottom: 1px solid #E5E5E5; font-family: Adamina; font-size: 16px; line-height: 18px; color: black; outline: none;" />
-                                    </div>
-                                    <div style="display: flex; justify-content: flex-end; gap: 12px;">
-                                        <button type="reset" style="width: 80px; height: 40px; border-radius: 8px; border: 1px solid #E5E5E5; background: white; color: #4D4D4D; font-family: Adamina; font-size: 14px; cursor: pointer;">Hủy</button>
-                                        <button type="submit" style="width: 120px; height: 40px; border-radius: 8px; border: none; background: #298E94; color: white; font-family: Adamina; font-size: 14px; cursor: pointer;">Lưu mật khẩu</button>
-                                    </div>
-                                </form>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 80px; display: inline-flex">
+                                <div style="color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">Số điện thoại</div>
+                                <div style="width: 189px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
+                                    <div style="color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">0916001234</div>
+                                </div>
                             </div>
                         </div>
-                        <!-- Kết thúc phần đổi mật khẩu -->
+                        <div style="width: 390px; left: 430px; top: 70px; position: absolute; justify-content: flex-start; align-items: center; gap: 57px; display: inline-flex">
+                            <div style="color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">Tên nhân viên</div>
+                            <div style="width: 294px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
+                                <div style="color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">Nguyễn Văn A</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width: 1005px; height: 349px; left: 16px; top: 267.50px; position: absolute; background: white; overflow: hidden; border-radius: 12px; outline: 1px #E5E5E5 solid; outline-offset: -1px">
+                        <div style="left: 24px; top: 24px; position: absolute; color: black; font-size: 20px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Thông tin công việc</div>
+                        <div style="width: 972px; left: 24px; top: 55px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: inline-flex">
+                            <div style="align-self: stretch; justify-content: space-between; align-items: flex-end; display: inline-flex">
+                                <div style="width: 478px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 21px; display: inline-flex">
+                                    <div style="align-self: stretch; height: 44px; position: relative">
+                                        <div style="width: 117px; height: 18px; left: 0px; top: 13px; position: absolute">
+                                            <div style="left: 0px; top: 0px; position: absolute; color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">Phòng làm việc</div>
+                                        </div>
+                                        <div style="width: 248px; height: 43px; left: 230px; top: 9px; position: absolute; overflow: hidden">
+                                            <div style="width: 241px; height: 38px; left: 7px; top: 5px; position: absolute; color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">CSKH</div>
+                                            <div style="width: 20px; height: 20px; left: 248px; top: 24px; position: absolute; transform: rotate(180deg); transform-origin: top left; overflow: hidden">
+                                                <div style="width: 10px; height: 5px; left: 5px; top: 7.50px; position: absolute; border-radius: 0.50px; outline: 1.30px black solid; outline-offset: -0.65px"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="align-self: stretch; justify-content: space-between; align-items: center; display: inline-flex">
+                                        <div style="color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">Chức vụ</div>
+                                        <div style="width: 247px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: space-between; align-items: center; display: flex">
+                                            <div style="color: black; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px; word-wrap: break-word">Thủ kho</div>
+                                            <div style="width: 20px; height: 20px; position: relative; transform: rotate(180deg); transform-origin: top left; overflow: hidden">
+                                                <div style="width: 10px; height: 5px; left: 5px; top: 7.50px; position: absolute; border-radius: 0.50px; outline: 1.30px black solid; outline-offset: -0.65px"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="align-self: stretch; justify-content: space-between; align-items: flex-start; display: inline-flex">
+                                <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Ghi chú</div>
+                                <div style="width: 741px; height: 113px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
+                                    <div style="width: 24px; height: 24px; position: relative; overflow: hidden">
+                                        <div style="width: 10px; height: 10px; left: 12px; top: 2px; position: absolute; outline: 1.50px #141B34 solid; outline-offset: -0.75px"></div>
+                                        <div style="width: 15px; height: 15px; left: 3px; top: 6px; position: absolute; outline: 1.50px #141B34 solid; outline-offset: -0.75px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin cá nhân -->
+                    <div style="width: 1001px; height: 278px; left: 16px; top: 633.50px; position: absolute; background: white; overflow: hidden; border-radius: 12px; outline: 1px #E5E5E5 solid; outline-offset: -1px">
+                        <div style="left: 24px; top: 24px; position: absolute; color: black; font-size: 20px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Thông tin cá nhân</div>
+
+                        <!-- Số CMND/CCCD -->
+                        <div style="left: 24px; top: 52px; position: absolute; justify-content: flex-start; align-items: center; gap: 98px; display: inline-flex">
+                            <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Số CMND/CCCD</div>
+                            <div style="width: 247px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
+                                <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 400; line-height: 18px; word-wrap: break-word">00129446328463</div>
+                            </div>
+                        </div>
+
+                        <!-- Ngày sinh -->
+                        <div style="left: 24px; top: 100px; position: absolute; justify-content: flex-start; align-items: center; gap: 98px; display: inline-flex">
+                            <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Ngày sinh</div>
+                            <div style="width: 247px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-end; align-items: center; gap: 10px; display: flex">
+                                <div style="width: 24px; height: 24px; position: relative; overflow: hidden">
+                                    <div style="width: 11px; height: 4px; left: 6.50px; top: 2px; position: absolute; outline: 1.50px #585858 solid; outline-offset: -0.75px"></div>
+                                    <div style="width: 18px; height: 18px; left: 3px; top: 4px; position: absolute; outline: 1.50px #585858 solid; outline-offset: -0.75px"></div>
+                                    <div style="width: 8px; height: 4px; left: 8.01px; top: 13.50px; position: absolute; outline: 1.50px #585858 solid; outline-offset: -0.75px"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Giới tính -->
+                        <div style="left: 24px; top: 154px; position: absolute; color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Giới tính</div>
+                        <div style="left: 24px; top: 182px; position: absolute; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                            <div data-avatar="true" data-hover="No" data-prefix="true" data-show-content="true" data-state="Title/Icon" data-suffix="true" style="width: 40px; height: 40px; padding-left: 12px; padding-right: 12px; padding-top: 10px; padding-bottom: 10px; border-radius: 8px; outline: 1px var(--border-border-tertiary, #E5E5E5) solid; outline-offset: -0.50px; justify-content: center; align-items: center; gap: 8px; display: flex">
+                                <div data-available="Yes" data-chosen="No" data-state="Default" style="width: 20px; height: 20px; padding: 1px; justify-content: center; align-items: center; gap: 10px; display: flex">
+                                    <div style="width: 16.67px; height: 16.67px; border-radius: 4px; border: 1.30px var(--icon-icon-tertiary, #A4A4A4) solid"></div>
+                                </div>
+                            </div>
+                            <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Nam</div>
+                        </div>
+
+                        <div style="left: 24px; top: 232px; position: absolute; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                            <div data-avatar="true" data-hover="No" data-prefix="true" data-show-content="true" data-state="Title/Icon" data-suffix="true" style="width: 40px; height: 40px; padding-left: 12px; padding-right: 12px; padding-top: 10px; padding-bottom: 10px; border-radius: 8px; outline: 1px var(--border-border-tertiary, #E5E5E5) solid; outline-offset: -0.50px; justify-content: center; align-items: center; gap: 8px; display: flex">
+                                <div data-available="Yes" data-chosen="No" data-state="Default" style="width: 20px; height: 20px; padding: 1px; justify-content: center; align-items: center; gap: 10px; display: flex">
+                                    <div style="width: 16.67px; height: 16.67px; border-radius: 4px; border: 1.30px var(--icon-icon-tertiary, #A4A4A4) solid"></div>
+                                </div>
+                            </div>
+                            <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Nữ</div>
+                        </div>
+                    </div>
+
+
+                    <div style="width: 1001px; height: 278px; left: 16px; top: 950.50px; position: absolute; background: white; overflow: hidden; border-radius: 12px; outline: 1px #E5E5E5 solid; outline-offset: -1px">
+                        <div style="left: 24px; top: 24px; position: absolute; color: black; font-size: 20px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Thông tin liên hệ</div>
+                        <div style="width: 477px; left: 25px; top: 67px; position: absolute; justify-content: flex-start; align-items: center; gap: 98px; display: inline-flex">
+                            <div style="flex: 1 1 0; color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Địa chỉ</div>
+                            <div style="width: 247px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
+                                <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 400; line-height: 18px; word-wrap: break-word">77 bà triệu</div>
+                            </div>
+                        </div>
+                        <div style="width: 477px; left: 510px; top: 67px; position: absolute; justify-content: flex-start; align-items: center; gap: 55px; display: inline-flex">
+                            <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Tỉnh/TP_Quận/Huyện</div>
+                            <div style="width: 247px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
+                                <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 400; line-height: 18px; word-wrap: break-word">Hà đông</div>
+                            </div>
+                        </div>
+                        <div style="width: 477px; left: 510px; top: 130px; position: absolute; justify-content: flex-start; align-items: center; gap: 98px; display: inline-flex">
+                            <div style="flex: 1 1 0; color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Phường/Xã</div>
+                            <div style="width: 247px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
+                                <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 400; line-height: 18px; word-wrap: break-word">Phường hà cầu</div>
+                            </div>
+                        </div>
+                        <div style="width: 477px; left: 510px; top: 193px; position: absolute; justify-content: flex-start; align-items: center; gap: 98px; display: inline-flex">
+                            <div style="flex: 1 1 0; color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">MXH (kèm link)</div>
+                            <div style="width: 247px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
+                                <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 400; line-height: 18px; word-wrap: break-word">link....</div>
+                            </div>
+                        </div>
+                        <div style="width: 477px; left: 25px; top: 130px; position: absolute; justify-content: flex-start; align-items: center; gap: 98px; display: inline-flex">
+                            <div style="flex: 1 1 0; color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 500; line-height: 18px; word-wrap: break-word">Email</div>
+                            <div style="width: 247px; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px #E5E5E5 solid; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
+                                <div style="color: black; font-size: 16px; font-family: SVN-Gilroy; font-weight: 400; line-height: 18px; word-wrap: break-word">gianguyen0803@gmmail.com</div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 

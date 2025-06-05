@@ -18,7 +18,7 @@ import vn.edu.fpt.model.User;
  *
  * @author anhndhe172050
  */
-public class UserController extends HttpServlet {
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

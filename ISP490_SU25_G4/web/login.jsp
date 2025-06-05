@@ -9,113 +9,16 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8" />
         <title>Đăng nhập - CRM Đồng Phát</title>
-        <style>
-            body {
-                font-family: Roboto, sans-serif;
-                margin: 0;
-                padding: 0;
-                background: white;
-            }
-            .container {
-                display: flex;
-                height: 100vh;
-            }
-            .left {
-                flex: 1;
-                background: url('img/a.jpg') no-repeat center center;
-                background-size: fit;
-            }
-            .right {
-                width: 500px;
-                padding: 40px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
-            .form-box {
-                width: 70%;
-                background: rgba(255, 255, 255, 0.9);
-                border: 1px solid #CDCDCD;
-                border-radius: 8px;
-                padding: 20px 40px;
-            }
-            .form-box h2 {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-            .input-group {
-                margin-bottom: 20px;
-            }
-            .input-group input {
-                width: 100%;
-                padding: 10px 12px;
-                font-size: 16px;
-                border: 1px solid #CDCDCD;
-                border-radius: 4px;
-            }
-            .btn {
-                width: 100%;
-                padding: 10px;
-                background-color: #15166F;
-                color: white;
-                border: none;
-                font-weight: bold;
-                border-radius: 8px;
-                cursor: pointer;
-            }
-            .or-divider {
-                text-align: center;
-                margin: 20px 0;
-                position: relative;
-            }
-            .or-divider:before,
-            .or-divider:after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                width: 40%;
-                height: 1px;
-                background: #CDCDCD;
-            }
-            .or-divider:before {
-                left: 0;
-            }
-            .or-divider:after {
-                right: 0;
-            }
-            .or-divider span {
-                background: white;
-                padding: 0 10px;
-                color: #737373;
-                font-weight: 700;
-                font-size: 13px;
-                text-transform: uppercase;
-            }
-            .footer {
-                margin-top: 30px;
-                font-size: 12px;
-                color: #737373;
-                text-align: center;
-            }
-            .register-link {
-                margin-top: 20px;
-                text-align: center;
-            }
-            .register-link a {
-                color: #15166F;
-                font-weight: bold;
-                text-decoration: none;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/login.css" />
     </head>
     <body>
         <div class="container">
             <div class="left"></div>
             <div class="right">
                 <form class="form-box" action="LoginController" method="post">
-                    <img src="img/b_1.jpg" alt="Logo" width="220" style="display:block; margin:0 auto 0px;">
+                    <img src="image/logo.png" alt="Logo" width="220" style="display:block; margin:0 auto 0px;">
                     <div class="input-group">
                         <input type="email" name="email" placeholder="Email" required>
                     </div>

@@ -7,6 +7,7 @@ package vn.edu.fpt.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,8 +17,9 @@ import vn.edu.fpt.model.User;
 
 /**
  *
- * @author anhndhe172050
+ * @author ducanh
  */
+@WebServlet(name = "UserController", urlPatterns = {"/UserController"})
 public class UserController extends HttpServlet {
 
     /**
@@ -37,10 +39,10 @@ public class UserController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewServlet1</title>");
+            out.println("<title>Servlet UserController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewServlet1 at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UserController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

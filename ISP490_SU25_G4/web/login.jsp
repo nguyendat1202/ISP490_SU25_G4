@@ -108,7 +108,7 @@
     </div>
     <div class="company-name">DONG PHAT JOINT STOCK COMPANY</div>
 
-    <form action="NewServlet1" method="post">
+    <form action="UserController" method="post">
         <div class="form-group">
             <input type="text" name="email" placeholder="Email" required />
         </div>

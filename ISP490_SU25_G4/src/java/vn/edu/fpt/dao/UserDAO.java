@@ -7,6 +7,7 @@ package vn.edu.fpt.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import org.mindrot.jbcrypt.BCrypt;
 import vn.edu.fpt.model.User;
 
@@ -82,4 +83,54 @@ public class UserDAO {
         }
         return false;
     }
+    
+    public boolean updateUserProfile(User user) {
+        String sql = "UPDATE Users SET "
+                   + "Phone = ?, "
+                   + "LastName = ?, "
+                   + "MiddleName = ?, "
+                   + "FirstName = ?, "
+                   + "Note = ?, "
+                   + "IdCard = ?, "
+                   + "Dob = ?, "
+                   + "Gender = ?, "
+                   + "Address = ?, "
+                   + "CityDistrict = ?, "
+                   + "Ward = ?, "
+                   + "SocialLink = ?, "
+                   + "AvatarURL = ? " // URL của ảnh đại diện
+                   + "WHERE UserID = ?";
+
+        try (Connection conn = new DBContext().getConnection(); // Lấy kết nối từ DBContext
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, user.getPhone());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getMiddleName());
+            ps.setString(4, user.getFirstName());
+            ps.setString(5, user.getNote());
+            ps.setString(6, user.getIdCard());
+            ps.setDate(7, user.getDob());
+            ps.setString(8, user.getGender());
+            ps.setString(9, user.getAddress());
+            ps.setString(10, user.getCityDistrict());
+            ps.setString(11, user.getWard());
+            ps.setString(12, user.getSocialLink());
+            ps.setString(13, user.getAvatarUrl());
+            ps.setInt(14, user.getUserId());
+
+            int rowsAffected = ps.executeUpdate();
+            
+            // Nếu có ít nhất 1 dòng được cập nhật, coi như thành công
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi cập nhật profile người dùng: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
+    
+    
+

@@ -12,15 +12,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import vn.edu.fpt.dao.UserDAO;
-import vn.edu.fpt.model.User;
+import java.time.LocalDateTime;
 
 /**
  *
  * @author ducanh
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "VerifyOTPController", urlPatterns = {"/VerifyOTPController"})
+public class VerifyOTPController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +38,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");
+            out.println("<title>Servlet VerifyOTPController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet VerifyOTPController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,18 +73,16 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        UserDAO dao = new UserDAO();
-        User u = dao.login(email, password);
+        String otpInput = request.getParameter("otp");
         HttpSession session = request.getSession();
-        if (u != null) {
-            session.setAttribute("user", u);
-            response.sendRedirect("homepage.jsp");
+        String sessionOTP = (String) session.getAttribute("otp");
+        LocalDateTime expiresAt = (LocalDateTime) session.getAttribute("otpExpiresAt");
+
+        if (sessionOTP != null && sessionOTP.equals(otpInput) && LocalDateTime.now().isBefore(expiresAt)) {
+            response.sendRedirect("password.jsp");
         } else {
-            request.setAttribute("error", "Email hoặc mật khẩu không đúng!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.setAttribute("error", "Mã OTP không đúng hoặc đã hết hạn.");
+            request.getRequestDispatcher("verifyOTP.jsp").forward(request, response);
         }
     }
 

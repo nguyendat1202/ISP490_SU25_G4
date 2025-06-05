@@ -4,174 +4,190 @@
     Author     : NGUYEN MINH
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <title>Xác minh mã OTP</title>
-    <style>
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            height: 100vh;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fff;
-        }
-        .left-side {
-            width: 50%;
-            height: 100%;
-            background: url("image/OTP.png") no-repeat center center;
-            background-size: fit;
-        }
-        .verify-container {
-            width: 40%;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .logo {
-            text-align: center;
-            margin-bottom: 8px;
-        }
-        .logo img {
-            width: 110px;
-        }
-        .company-name {
-            font-size: 18px;
-            color: #E01111;
-            font-weight: 700;
-            margin-top: 0;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .info-text {
-            font-size: 22px;
-            color: black;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 500;
-        }
-        .email-text {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .input-group {
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 20px;
-            font-family: Arial, sans-serif;
-        }
-        .btn-verify {
-            width: 100%;
-            background-color: #15166F;
-            color: white;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .btn-verify:hover {
-            background-color: #0e126d;
-        }
-        .expire-message {
-            color: #00376B;
-            font-size: 16px;
-            margin-top: 15px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-weight: 500;
-        }
-        .expire-icon {
-            width: 20px;
-            height: 20px;
-            background-color: #E01111;
-            border-radius: 50%;
-            position: relative;
-        }
-        .expire-icon::before, .expire-icon::after {
-            content: '';
-            position: absolute;
-            top: 6px; left: 9px;
-            width: 2px; height: 6px;
-            background: white;
-            border-radius: 1px;
-        }
-        .expire-icon::after {
-            left: 14px;
-            height: 12px;
-            top: 4px;
-            border-radius: 2px;
-        }
-        .resend-link {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .resend-link a {
-            text-decoration: none;
-            color: #15166F;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .footer {
-            text-align: center;
-            font-size: 13px;
-            color: #999;
-            margin-top: 40px;
-        }
-    </style>
-</head>
-<body>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <title>Xác minh mã OTP</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
 
-<div class="left-side"></div>
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100vh;
+            }
 
-<div class="verify-container">
-    <div class="logo">
-        <img src="image/logo.png" alt="Logo" />
-    </div>
-    <div class="company-name">DONG PHAT JOINT STOCK COMPANY</div>
+            .container {
+                display: flex;
+                height: 100vh;
+            }
 
-    <div class="info-text">Mã xác thực đã được gửi đến</div>
-    <div class="email-text">
-        "<%= request.getAttribute("userEmail") != null ? request.getAttribute("userEmail") : "email@gmail.com" %>"
-    </div>
+            .left-side {
+                flex: 1;
+                position: relative;
+                background: url('img/bg.jpg') no-repeat center center;
+                background-size: contain;
+                background-color: #fff;
+            }
 
-    <form action="VerifyCodeServlet" method="post">
-        <div class="input-group">
-            <input type="text" name="verificationCode" placeholder="Nhập mã xác minh gồm 6 số" required maxlength="6" pattern="\d{6}" title="Vui lòng nhập đúng 6 chữ số" />
+            .left-side img {
+                position: absolute;
+                top: 30px;
+                left: 200px;
+                width: 60px;
+            }
+
+            .left-side .company-name {
+                position: absolute;
+                top: 130px;
+                left: 200px;
+                font-size: 18px;
+                font-weight: 600;
+                color: #D80000;
+            }
+
+            .right-side {
+                flex: 1;
+                background-color: #fff;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .verify-box {
+                width: 100%;
+                max-width: 400px;
+                border: 1px solid #ddd;
+                padding: 30px;
+                border-radius: 12px;
+                text-align: center;
+            }
+
+            .verify-box h3 {
+                font-size: 18px;
+                margin-bottom: 25px;
+                color: #15166F;
+            }
+
+            .verify-box input[type="text"] {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                margin-bottom: 20px;
+                font-size: 15px;
+            }
+
+            .verify-box button {
+                width: 100%;
+                padding: 10px;
+                background-color: #15166F;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                font-weight: bold;
+                font-size: 15px;
+                cursor: pointer;
+            }
+
+            .verify-box button:hover {
+                background-color: #0d1b5d;
+            }
+
+            .verify-box .expired {
+                color: red;
+                font-size: 14px;
+                margin-top: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+            }
+
+            .verify-box .expired img {
+                width: 18px;
+                height: 18px;
+            }
+
+            .resend {
+                margin-top: 20px;
+                font-size: 14px;
+                text-align: center;
+            }
+
+            .resend a {
+                color: #15166F;
+                font-weight: bold;
+                text-decoration: none;
+                margin-left: 5px;
+            }
+
+            .footer {
+                margin-top: 40px;
+                font-size: 12px;
+                color: #777;
+                text-align: center;
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    flex-direction: column;
+                }
+
+                .left-side {
+                    height: 40vh;
+                    background-size: cover;
+                }
+
+                .right-side {
+                    height: 60vh;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Cột trái: ảnh + logo + tên công ty -->
+            <div class="left-side">
+                <img src="img/logo.jpg" alt="Logo">
+                <div class="company-name">DONG PHAT JOINT STOCK COMPANY</div>
+            </div>
+
+            <!-- Cột phải: form xác minh -->
+            <div class="right-side">
+                <div class="verify-box">
+                    <h3>Mã xác thực đã được gửi đến<br>"<%= session.getAttribute("email")%>"</h3>
+
+                    <form action="VerifyOTPController" method="post">
+                        <input type="text" name="otp" placeholder="Mã xác minh" required>
+                        <c:if test="${not empty error}">
+                            <p style="color:red">${error}</p>
+                        </c:if>
+                        <button type="submit">Xác minh</button>
+                    </form>
+
+                    <div class="expired">
+                        <img src="img/warning-icon.png" alt="Cảnh báo">
+                        Mã sẽ hết hạn sau 5 phút
+                    </div>
+                </div>
+
+                <div class="resend">
+                    Bạn chưa nhận được mã? <a href="ResendOTPServlet">Gửi lại</a>
+                </div>
+
+                <div class="footer">
+                    © 2025 DPCRM from ISP490_SU25_GR4
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn-verify">Xác minh</button>
-    </form>
-
-    <div class="expire-message">
-        <div class="expire-icon"></div>
-        Mã sẽ hết hạn sau 5 phút
-    </div>
-
-    <div class="resend-link">
-        Bạn chưa nhận được mã? <a href="ResendCodeServlet">Gửi lại</a>
-    </div>
-
-    <div class="footer">
-        © 2025 DPCRM from ISP490_SU25_GR4
-    </div>
-</div>
-
-</body>
+    </body>
 </html>

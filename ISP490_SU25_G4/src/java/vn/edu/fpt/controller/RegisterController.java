@@ -12,15 +12,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.Random;
 import vn.edu.fpt.dao.UserDAO;
-import vn.edu.fpt.model.User;
+import vn.edu.fpt.util.EmailUtil;
 
 /**
  *
  * @author ducanh
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
+public class RegisterController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +41,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");
+            out.println("<title>Servlet RegisterController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RegisterController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,19 +76,22 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
         UserDAO dao = new UserDAO();
-        User u = dao.login(email, password);
-        HttpSession session = request.getSession();
-        if (u != null) {
-            session.setAttribute("user", u);
-            response.sendRedirect("homepage.jsp");
-        } else {
-            request.setAttribute("error", "Email hoặc mật khẩu không đúng!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        String email = request.getParameter("email");
+        if (dao.emailExists(email)) {
+            request.setAttribute("error", "Email đã được đăng kí");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
         }
+        String otp = String.valueOf(new Random().nextInt(900000) + 100000);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("email", email);
+        session.setAttribute("otp", otp);
+        session.setAttribute("otpExpiresAt", LocalDateTime.now().plusMinutes(5));
+
+        EmailUtil.sendOTP(email, otp);
+        response.sendRedirect("verifyOTP.jsp");
     }
 
     /**

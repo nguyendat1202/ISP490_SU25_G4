@@ -13,14 +13,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.edu.fpt.dao.UserDAO;
-import vn.edu.fpt.model.User;
 
 /**
  *
- * @author ducanh
+ * @author NGUYEN MINH
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "ResetPasswordController", urlPatterns = {"/ResetPasswordController"})
+public class ResetPasswordController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +38,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");
+            out.println("<title>Servlet ResetPasswordController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ResetPasswordController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,19 +73,43 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
         UserDAO dao = new UserDAO();
-        User u = dao.login(email, password);
         HttpSession session = request.getSession();
-        if (u != null) {
-            session.setAttribute("user", u);
-            response.sendRedirect("homepage.jsp");
-        } else {
-            request.setAttribute("error", "Email hoặc mật khẩu không đúng!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        String email = (String) session.getAttribute("email");
+
+        if (email == null) {
+            response.sendRedirect("forgotPassword.jsp"); // quay lại nếu chưa xác minh
+            return;
         }
+
+        String newPassword = request.getParameter("newPassword");
+        String confirmPassword = request.getParameter("confirmPassword");
+
+        if (!newPassword.equals(confirmPassword)) {
+            request.setAttribute("error", "Mật khẩu không khớp!");
+            request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+            return;
+        }
+
+        if (!isValidPassword(newPassword)) {
+            request.setAttribute("error", "Mật khẩu không đủ mạnh!");
+            request.getRequestDispatcher("password.jsp").forward(request, response);
+            return;
+        }
+
+        dao.updatePassword(email, newPassword);
+
+        // Sau khi đổi xong, xóa session
+        session.removeAttribute("email");
+
+        response.sendRedirect("login.jsp");
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.length() >= 8
+                && password.matches(".*[A-Z].*")
+                && password.matches(".*[a-z].*")
+                && password.matches(".*[0-9].*");
     }
 
     /**

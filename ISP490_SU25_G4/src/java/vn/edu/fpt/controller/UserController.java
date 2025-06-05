@@ -10,10 +10,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import vn.edu.fpt.dao.UserDAO;
+import vn.edu.fpt.model.User;
 
 /**
  *
- * @author PC
+ * @author anhndhe172050
  */
 public class UserController extends HttpServlet {
 
@@ -69,7 +72,19 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        UserDAO dao = new UserDAO();
+        User u = dao.login(email, password);
+        HttpSession session = request.getSession();
+        if (u != null) {
+            session.setAttribute("user", u);
+            response.sendRedirect("homepage.jsp");
+        } else {
+            request.setAttribute("error", "Email hoặc mật khẩu không đúng!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
     }
 
     /**

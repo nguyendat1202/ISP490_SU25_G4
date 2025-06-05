@@ -343,12 +343,10 @@
             height: 20px;
             color: black;
         }
-
-        /* Styles for input fields to match the design */
         .form-input {
             color: black;
             font-size: 16px;
-            font-family: Adamina, sans-serif; /* Use Adamina for consistency */
+            font-family: Adamina, sans-serif;
             font-weight: 400;
             line-height: 18px;
             word-wrap: break-word;
@@ -361,7 +359,7 @@
             outline: none;
         }
         .input-container {
-            width: 100%; /* Make container take full width */
+            width: 100%;
             padding-top: 10px;
             padding-bottom: 10px;
             border-bottom: 1px #E5E5E5 solid;
@@ -532,181 +530,188 @@
                 </div>
             </div>
         </nav>
-        <main class="main-content" role="main">
-            <header class="header-container">
-                <h1 class="header-title">Sửa thông tin cá nhân</h1>
-                <div class="notification-container" title="Thông báo" role="button" aria-label="Thông báo mới 4">
-                    <div class="notification-icon" aria-hidden="true">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 2a4 4 0 0 0-4 4v4c0 1.5-1 2-1 2h10s-1-.5-1-2V6a4 4 0 0 0-4-4z" stroke="var(--icon-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M7 17h6" stroke="var(--icon-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="notification-badge">4</div>
-                </div>
-            </header>
-            <section style="width: 100%; height: calc(100vh - 84px); position: relative; background: #F2F2F2; overflow-y: auto; padding: 24px;">
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="flex: 0 0 170px; display: flex; flex-direction: column; gap: 16px;">
-                        <img style="width: 170px; height: 170px; border-radius: 12px" src="https://placehold.co/170x170" alt="Profile Image" />
-                        <label for="upload-photo" style="width: 170px; padding: 10px; background: #E5E5E5; border-radius: 12px; text-align: center; color: #4D4D4D; font-size: 14px; font-family: SVN-Gilroy; font-weight: 700; cursor: pointer;">
-                            Chọn ảnh
-                        </label>
-                        <input type="file" id="upload-photo" style="display: none;">
-                    </div>
 
-                    <div style="flex: 1; display: flex; flex-direction: column; gap: 24px;">
-                        <div style="width: 100%; background: white; border-radius: 12px; outline: 1px #E5E5E5 solid; padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-                            <div style="color: black; font-size: 20px; font-family: Adamina; font-weight: 400;">Thông tin khởi tạo</div>
-                            <div style="display: flex; gap: 40px; flex-wrap: wrap;">
-                                <div style="flex: 1; display: flex; flex-direction: column; gap: 24px; min-width: 350px;">
-                                    <div style="display: flex; align-items: center; gap: 20px;">
+        <main class="main-content" role="main">
+            <form action="editProfileController" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; width: 100%; height: 100%;">
+                <header class="header-container">
+                    <h1 class="header-title">Sửa thông tin cá nhân</h1>
+                    <div class="notification-container" title="Thông báo" role="button" aria-label="Thông báo mới 4">
+                        <div class="notification-icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 2a4 4 0 0 0-4 4v4c0 1.5-1 2-1 2h10s-1-.5-1-2V6a4 4 0 0 0-4-4z" stroke="var(--icon-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7 17h6" stroke="var(--icon-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="notification-badge">4</div>
+                    </div>
+                </header>
+
+                <section style="width: 100%; flex-grow: 1; position: relative; background: #F2F2F2; overflow-y: auto; padding: 24px;">
+                    <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                        <div style="flex: 0 0 170px; display: flex; flex-direction: column; gap: 16px;">
+                            <img style="width: 170px; height: 170px; border-radius: 12px" src="https://placehold.co/170x170" alt="Profile Image" />
+                            <label for="upload-photo" style="width: 170px; padding: 10px; background: #E5E5E5; border-radius: 12px; text-align: center; color: #4D4D4D; font-size: 14px; font-family: SVN-Gilroy; font-weight: 700; cursor: pointer;">
+                                Chọn ảnh
+                            </label>
+                            <input type="file" id="upload-photo" name="profileImage" style="display: none;">
+                        </div>
+
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 24px;">
+                            <div style="width: 100%; background: white; border-radius: 12px; outline: 1px #E5E5E5 solid; padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+                                <div style="color: black; font-size: 20px; font-family: Adamina; font-weight: 400;">Thông tin khởi tạo</div>
+                                <div style="display: flex; gap: 40px; flex-wrap: wrap;">
+                                    <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
                                         <div style="width: 120px; color: black; font-size: 16px; font-family: Adamina; font-weight: 400;">Mã nhân viên</div>
                                         <div class="input-container" style="flex: 1;">
                                             <div style="color: #a4a4a4; font-size: 16px; font-family: Adamina; font-weight: 400; line-height: 18px;">Mã nhân viên tự động</div>
                                         </div>
                                     </div>
-                                    <div style="display: flex; align-items: center; gap: 20px;">
+                                    <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
                                         <div style="width: 120px; color: black; font-size: 16px; font-family: Adamina; font-weight: 400;">Số điện thoại</div>
                                         <div class="input-container" style="flex: 1;">
-                                            <input type="text" class="form-input" value="" placeholder="Nhập số điện thoại">
+                                            <input type="text" name="phone" class="form-input" value="" placeholder="Nhập số điện thoại">
                                         </div>
                                     </div>
                                 </div>
-                                <div style="flex: 1; display: flex; flex-direction: column; gap: 24px; min-width: 350px;">
-                                    <div style="display: flex; align-items: center; gap: 20px;">
-                                        <div style="width: 120px; color: black; font-size: 16px; font-family: Adamina; font-weight: 400;">Tên nhân viên</div>
+                                <div style="display: flex; gap: 20px; align-items: center; flex-wrap: nowrap;">
+                                    <div style="width: 120px; color: black; font-size: 16px; font-family: Adamina; font-weight: 400;">Họ và Tên</div>
+                                    <div style="flex: 1; display: flex; gap: 16px;">
                                         <div class="input-container" style="flex: 1;">
-                                            <input type="text" class="form-input" value="" placeholder="Nhập tên nhân viên">
+                                            <input type="text" name="lastName" class="form-input" value="" placeholder="Họ">
+                                        </div>
+                                        <div class="input-container" style="flex: 1;">
+                                            <input type="text" name="middleName" class="form-input" value="" placeholder="Tên đệm">
+                                        </div>
+                                        <div class="input-container" style="flex: 1;">
+                                            <input type="text" name="firstName" class="form-input" value="" placeholder="Tên">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div style="width: 100%; background: white; border-radius: 12px; outline: 1px #E5E5E5 solid; padding: 24px; display: flex; flex-direction: column; gap: 32px;">
-                            <div style="color: black; font-size: 20px; font-family: 'SVN-Gilroy'; font-weight: 500;">Thông tin công việc</div>
-                            <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start;">
-                                 <div style="flex: 1; display: flex; align-items: center; gap: 20px;">
-                                    <div style="width: 120px; color: black; font-size: 16px; font-family: Adamina; font-weight: 400;">Phòng làm việc</div>
-                                    <div class="select-container" style="flex: 1;">
-                                        <select class="form-select">
-                                            <option value="" disabled selected>Chọn phòng làm việc</option>
-                                            <option value="CSKH">CSKH</option>
-                                            <option value="KinhDoanh">Kinh doanh</option>
-                                            <option value="KyThuat">Kĩ thuật</option>
-                                            <option value="Marketing">Marketing</option>
-                                        </select>
-                                        <i data-lucide="chevron-down" class="icon-modern"></i>
+                            <div style="width: 100%; background: white; border-radius: 12px; outline: 1px #E5E5E5 solid; padding: 24px; display: flex; flex-direction: column; gap: 32px;">
+                                <div style="color: black; font-size: 20px; font-family: 'SVN-Gilroy'; font-weight: 500;">Thông tin công việc</div>
+                                <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start;">
+                                     <div style="flex: 1; display: flex; align-items: center; gap: 20px;">
+                                        <div style="width: 120px; color: black; font-size: 16px; font-family: Adamina; font-weight: 400;">Phòng làm việc</div>
+                                        <div class="select-container" style="flex: 1;">
+                                            <select name="department" class="form-select">
+                                                <option value="" disabled selected>Chọn phòng làm việc</option>
+                                                <option value="CSKH">Phòng CSKH</option>
+                                                <option value="KyThuat">Phòng kĩ thuật</option>
+                                            </select>
+                                            <i data-lucide="chevron-down" class="icon-modern"></i>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1; display: flex; align-items: center; gap: 20px;">
+                                        <div style="width: 120px; color: black; font-size: 16px; font-family: Adamina; font-weight: 400;">Chức vụ</div>
+                                         <div class="select-container" style="flex: 1;">
+                                            <select name="position" class="form-select">
+                                                <option value="" disabled selected>Chọn chức vụ</option>
+                                                <option value="NhanVienCSKH">Nhân viên CSKH</option>
+                                                <option value="NhanVienKyThuat">Nhân viên kĩ thuật</option>
+                                            </select>
+                                            <i data-lucide="chevron-down" class="icon-modern"></i>
+                                        </div>
                                     </div>
                                 </div>
-                                <div style="flex: 1; display: flex; align-items: center; gap: 20px;">
-                                    <div style="width: 120px; color: black; font-size: 16px; font-family: Adamina; font-weight: 400;">Chức vụ</div>
-                                     <div class="select-container" style="flex: 1;">
-                                        <select class="form-select">
-                                            <option value="" disabled selected>Chọn chức vụ</option>
-                                            <option value="NhanVienCSKH">Nhân viên CSKH</option>
-                                            <option value="NhanVienKyThuat">Nhân viên kĩ thuật</option>
-                                        </select>
-                                        <i data-lucide="chevron-down" class="icon-modern"></i>
+                                <div style="display: flex; gap: 20px; width: 100%;">
+                                    <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Ghi chú</div>
+                                    <div class="input-container" style="flex: 1; height: 113px;">
+                                        <i data-lucide="sticky-note" class="icon-modern" style="align-self: flex-start;"></i>
+                                        <textarea name="note" class="form-textarea" placeholder="Nhập ghi chú..."></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <div style="display: flex; gap: 20px; width: 100%;">
-                                <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Ghi chú</div>
-                                <div class="input-container" style="flex: 1; height: 113px;">
-                                    <i data-lucide="sticky-note" class="icon-modern" style="align-self: flex-start;"></i>
-                                    <textarea class="form-textarea" placeholder="Nhập ghi chú..."></textarea>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div style="width: 100%; background: white; border-radius: 12px; outline: 1px #E5E5E5 solid; padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-                             <div style="color: black; font-size: 20px; font-family: 'SVN-Gilroy'; font-weight: 500;">Thông tin cá nhân</div>
-                             <div style="display: flex; gap: 40px; flex-wrap: wrap;">
-                                <div style="flex: 1; display: flex; flex-direction: column; gap: 24px; min-width: 350px;">
-                                    <div style="display: flex; align-items: center; gap: 20px;">
-                                        <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Số CMND/CCCD</div>
-                                        <div class="input-container" style="flex: 1;">
-                                            <input type="text" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập số CMND/CCCD">
-                                        </div>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 20px;">
-                                        <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Ngày sinh</div>
-                                        <div class="input-container" style="flex: 1;">
-                                            <input type="date" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="flex: 1; display: flex; flex-direction: column; gap: 16px; min-width: 350px;">
-                                    <div style="color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Giới tính</div>
-                                    <div style="display: flex; gap: 40px;">
-                                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                                            <input type="radio" name="gender" value="Nam">
-                                            <span style="font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Nam</span>
-                                        </label>
-                                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                                            <input type="radio" name="gender" value="Nữ">
-                                            <span style="font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Nữ</span>
-                                        </label>
-                                    </div>
-                                </div>
-                             </div>
-                        </div>
-
-                         <div style="width: 100%; background: white; border-radius: 12px; outline: 1px #E5E5E5 solid; padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-                            <div style="color: black; font-size: 20px; font-family: 'SVN-Gilroy'; font-weight: 500;">Thông tin liên hệ</div>
-                            <div style="display: flex; flex-direction: column; gap: 24px;">
-                                <div style="display: flex; gap: 40px; flex-wrap: wrap;">
-                                    <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
-                                        <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Địa chỉ</div>
-                                        <div class="input-container" style="flex: 1;">
-                                            <input type="text" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập địa chỉ">
-                                        </div>
-                                    </div>
-                                    <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
-                                        <div style="width: 150px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Tỉnh/TP_Quận/Huyện</div>
-                                        <div class="input-container" style="flex: 1;">
-                                            <input type="text" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập quận/huyện">
-                                        </div>
-                                    </div>
-                                </div>
+                            <div style="width: 100%; background: white; border-radius: 12px; outline: 1px #E5E5E5 solid; padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+                                 <div style="color: black; font-size: 20px; font-family: 'SVN-Gilroy'; font-weight: 500;">Thông tin cá nhân</div>
                                  <div style="display: flex; gap: 40px; flex-wrap: wrap;">
-                                    <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
-                                        <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Phường/Xã</div>
-                                        <div class="input-container" style="flex: 1;">
-                                            <input type="text" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập phường/xã">
+                                    <div style="flex: 1; display: flex; flex-direction: column; gap: 24px; min-width: 350px;">
+                                        <div style="display: flex; align-items: center; gap: 20px;">
+                                            <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Số CMND/CCCD</div>
+                                            <div class="input-container" style="flex: 1;">
+                                                <input type="text" name="idCard" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập số CMND/CCCD">
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 20px;">
+                                            <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Ngày sinh</div>
+                                            <div class="input-container" style="flex: 1;">
+                                                <input type="date" name="dob" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
-                                        <div style="width: 150px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">MXH (kèm link)</div>
-                                        <div class="input-container" style="flex: 1;">
-                                            <input type="text" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập link mạng xã hội">
+                                    <div style="flex: 1; display: flex; flex-direction: column; gap: 16px; min-width: 350px;">
+                                        <div style="color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Giới tính</div>
+                                        <div style="display: flex; gap: 40px;">
+                                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                                <input type="radio" name="gender" value="Nam">
+                                                <span style="font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Nam</span>
+                                            </label>
+                                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                                <input type="radio" name="gender" value="Nữ">
+                                                <span style="font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Nữ</span>
+                                            </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div style="display: flex; gap: 40px; flex-wrap: wrap;">
-                                     <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
-                                        <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Email</div>
-                                        <div class="input-container" style="flex: 1;">
-                                            <input type="email" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập email">
+                                 </div>
+                            </div>
+
+                             <div style="width: 100%; background: white; border-radius: 12px; outline: 1px #E5E5E5 solid; padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+                                <div style="color: black; font-size: 20px; font-family: 'SVN-Gilroy'; font-weight: 500;">Thông tin liên hệ</div>
+                                <div style="display: flex; flex-direction: column; gap: 24px;">
+                                    <div style="display: flex; gap: 40px; flex-wrap: wrap;">
+                                        <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
+                                            <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Địa chỉ</div>
+                                            <div class="input-container" style="flex: 1;">
+                                                <input type="text" name="address" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập địa chỉ">
+                                            </div>
+                                        </div>
+                                        <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
+                                            <div style="width: 150px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Tỉnh/TP_Quận/Huyện</div>
+                                            <div class="input-container" style="flex: 1;">
+                                                <input type="text" name="cityDistrict" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập quận/huyện">
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div style="display: flex; gap: 40px; flex-wrap: wrap;">
+                                        <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
+                                            <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Phường/Xã</div>
+                                            <div class="input-container" style="flex: 1;">
+                                                <input type="text" name="ward" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập phường/xã">
+                                            </div>
+                                        </div>
+                                        <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
+                                            <div style="width: 150px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">MXH (kèm link)</div>
+                                            <div class="input-container" style="flex: 1;">
+                                                <input type="text" name="socialLink" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập link mạng xã hội">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 40px; flex-wrap: wrap;">
+                                         <div style="flex: 1; display: flex; align-items: center; gap: 20px; min-width: 350px;">
+                                            <div style="width: 120px; color: black; font-size: 16px; font-family: 'SVN-Gilroy'; font-weight: 500;">Email</div>
+                                            <div class="input-container" style="flex: 1;">
+                                                <input type="email" name="email" class="form-input" style="font-family: 'SVN-Gilroy', sans-serif;" value="" placeholder="Nhập email">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </section>
+
+                <div style="width: 100%; height: 70px; padding: 16px 32px; background: #ffffff; border-top: 1px solid #E5E5E5; display: flex; justify-content: flex-end; align-items: center; gap: 16px; position: sticky; bottom: 0; z-index: 10;">
+                    <button type="reset" style="height: 40px; padding: 0 16px; background: white; color: #4D4D4D; border: 1px solid #A4A4A4; border-radius: 8px; font-family: 'SVN-Gilroy'; font-size: 14px; font-weight: 500; cursor: pointer;">
+                        Hủy
+                    </button>
+                    <button type="submit" style="height: 40px; padding: 0 16px; background: #298e94; color: white; border: none; border-radius: 8px; font-family: 'SVN-Gilroy'; font-size: 14px; font-weight: 500; cursor: pointer;">
+                        Lưu thông tin
+                    </button>
                 </div>
-            </section>
-            <div style="width: 100%; height: 70px; padding: 16px 32px; background: #ffffff; border-top: 1px solid #E5E5E5; display: flex; justify-content: flex-end; align-items: center; gap: 16px; position: sticky; bottom: 0; z-index: 10;">
-                <button style="height: 40px; padding: 0 16px; background: white; color: #4D4D4D; border: 1px solid #A4A4A4; border-radius: 8px; font-family: 'SVN-Gilroy'; font-size: 14px; font-weight: 500; cursor: pointer;">
-                    Hủy
-                </button>
-                <button style="height: 40px; padding: 0 16px; background: #298e94; color: white; border: none; border-radius: 8px; font-family: 'SVN-Gilroy'; font-size: 14px; font-weight: 500; cursor: pointer;">
-                    Lưu thông tin
-                </button>
-            </div>
-        </main>
+            </form>
+            </main>
     </div>
 
     <script>
@@ -724,7 +729,6 @@
             }
         });
 
-        // Mở/đóng submenu "Thông tin cá nhân"
         const personalInfoMenu = document.getElementById('personalInfoMenu');
         const personalInfoSubmenu = document.getElementById('personalInfoSubmenu');
         const arrowIcon = personalInfoMenu.querySelector('.arrow-icon svg');
@@ -734,7 +738,6 @@
             personalInfoMenu.setAttribute('aria-expanded', !expanded);
             personalInfoMenu.classList.toggle('open');
             personalInfoSubmenu.classList.toggle('active');
-            // Xoay icon mũi tên
             if(personalInfoMenu.classList.contains('open')){
                  arrowIcon.style.transform = 'rotate(180deg)';
             } else {
@@ -749,7 +752,6 @@
             }
         });
 
-        // Trigger submenu open state on page load
         document.addEventListener('DOMContentLoaded', function() {
             if(personalInfoMenu.classList.contains('active')) {
                  personalInfoMenu.classList.add('open');
@@ -757,8 +759,6 @@
                  arrowIcon.style.transform = 'rotate(180deg)';
             }
         });
-
     </script>
 </body>
 </html>
-

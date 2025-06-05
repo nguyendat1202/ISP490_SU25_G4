@@ -7,6 +7,7 @@ package vn.edu.fpt.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import org.mindrot.jbcrypt.BCrypt;
 import vn.edu.fpt.model.User;
 
 /**
@@ -44,5 +45,41 @@ public class UserDAO {
             e.printStackTrace();
         }
         return null; // đăng nhập thất bại
+    }
+
+    public void createUser(String email, String rawPassword) {
+        String sql = "INSERT INTO Users (email, password_hash, name, role, status) VALUES (?, ?, '', 'cskh', 'active')";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            String hashed = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
+            ps.setString(1, email);
+            ps.setString(2, hashed);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updatePassword(String email, String rawPassword) {
+        String sql = "UPDATE Users SET password_hash = ? WHERE email = ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            String hashed = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
+            ps.setString(1, hashed);
+            ps.setString(2, email);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean emailExists(String email) {
+        String sql = "SELECT id FROM Users WHERE email = ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // có tồn tại
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

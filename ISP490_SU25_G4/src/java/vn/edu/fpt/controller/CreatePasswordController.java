@@ -13,14 +13,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.edu.fpt.dao.UserDAO;
-import vn.edu.fpt.model.User;
 
 /**
  *
  * @author ducanh
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "CreatePasswordController", urlPatterns = {"/CreatePasswordController"})
+public class CreatePasswordController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +38,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");
+            out.println("<title>Servlet CreatePasswordController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreatePasswordController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,19 +73,44 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
         UserDAO dao = new UserDAO();
-        User u = dao.login(email, password);
+        String password = request.getParameter("password");
+        String confirm = request.getParameter("confirmPassword");
+
         HttpSession session = request.getSession();
-        if (u != null) {
-            session.setAttribute("user", u);
-            response.sendRedirect("homepage.jsp");
-        } else {
-            request.setAttribute("error", "Email hoặc mật khẩu không đúng!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        String email = (String) session.getAttribute("email");
+
+        if (email == null) {
+            response.sendRedirect("register.jsp");
+            return;
         }
+
+        if (!password.equals(confirm)) {
+            request.setAttribute("error", "Mật khẩu không khớp!");
+            request.getRequestDispatcher("password.jsp").forward(request, response);
+            return;
+        }
+
+        if (!isValidPassword(password)) {
+            request.setAttribute("error", "Mật khẩu không đủ mạnh!");
+            request.getRequestDispatcher("password.jsp").forward(request, response);
+            return;
+        }
+
+        dao.createUser(email, password);
+
+        // Xóa email khỏi session sau khi tạo tài khoản
+        session.removeAttribute("email");
+
+        // Chuyển về trang đăng nhập
+        response.sendRedirect("login.jsp");
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.length() >= 8
+                && password.matches(".*[A-Z].*")
+                && password.matches(".*[a-z].*")
+                && password.matches(".*[0-9].*");
     }
 
     /**

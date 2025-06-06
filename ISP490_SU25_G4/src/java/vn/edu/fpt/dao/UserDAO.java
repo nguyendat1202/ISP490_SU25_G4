@@ -130,6 +130,13 @@ public class UserDAO {
             return false;
         }
     }
+    
+     public boolean ViewProfile(User user) {
+         
+        return false;
+         
+     }
+    
 }
     
     

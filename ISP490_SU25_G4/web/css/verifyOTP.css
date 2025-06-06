@@ -1,0 +1,149 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 6, 2025, 12:11:28 PM
+    Author     : ducanh
+*/
+
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-side {
+    flex: 1;
+    position: relative;
+    background: url('../image/OTP.png') no-repeat center center;
+    background-size: contain;
+    background-color: #fff;
+}
+
+.left-side img {
+    position: absolute;
+    top: 30px;
+    left: 200px;
+    width: 60px;
+}
+
+.left-side .company-name {
+    position: absolute;
+    top: 130px;
+    left: 200px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #D80000;
+}
+
+.right-side {
+    flex: 1;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.verify-box {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ddd;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.verify-box h3 {
+    font-size: 18px;
+    margin-bottom: 25px;
+    color: #15166F;
+}
+
+.verify-box input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.verify-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #15166F;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.verify-box button:hover {
+    background-color: #0d1b5d;
+}
+
+.verify-box .expired {
+    color: red;
+    font-size: 14px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.verify-box .expired img {
+    width: 18px;
+    height: 18px;
+}
+
+.resend {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.resend a {
+    color: #15166F;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.footer {
+    margin-top: 40px;
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side {
+        height: 40vh;
+        background-size: cover;
+    }
+
+    .right-side {
+        height: 60vh;
+    }
+}

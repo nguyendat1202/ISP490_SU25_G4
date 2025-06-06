@@ -23,7 +23,7 @@
             </div>
             <div class="company-name">DONG PHAT JOINT STOCK COMPANY</div>
 
-            <form action="SendOTPServlet" method="post">
+            <form action="ForgotPasswordController" method="post">
                 <div class="form-group">
                     <input type="email" name="email" placeholder="Nhập email của bạn" required />
                 </div>

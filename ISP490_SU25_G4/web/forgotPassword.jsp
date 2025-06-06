@@ -4,6 +4,7 @@
     Author     : NGUYEN MINH
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -28,7 +29,9 @@
                 </div>
                 <button type="submit" class="send-otp-btn">Gửi mã xác nhận OTP</button>
             </form>
-
+            <c:if test="${not empty error}">
+                <p style="color:red">${error}</p>
+            </c:if>
             <a href="login.jsp" class="back-login">Quay lại đăng nhập</a>
 
             <div class="footer">

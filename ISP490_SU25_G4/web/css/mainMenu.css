@@ -1,0 +1,148 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/*
+    Created on : Jun 6, 2025, 2:55:52 PM
+    Author     : NGUYEN MINH
+*/
+/* File: mainMenu.css - Phiên bản đã sửa lỗi */
+.sidebar {
+    width: 256px;
+    background-color: var(--white);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    flex-shrink: 0;
+    transition: width 0.3s ease;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding: 0 8px;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-inactive);
+}
+.toggle-btn .feather { width: 20px; height: 20px; }
+
+.sidebar-nav { flex-grow: 1; }
+.sidebar-nav ul { list-style: none; padding: 0;} 
+
+
+.sidebar-nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 15px;
+}
+.sidebar-nav ul li a .feather { width: 20px; height: 20px; }
+.sidebar-nav ul li a:hover {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+}
+.sidebar-nav ul li a .dropdown-icon { margin-left: auto; }
+
+
+.sidebar-nav > ul > li > a.active {
+    background-color: var(--primary-color);
+    color: var(--white); /* Đổi sang màu trắng để nổi bật trên nền primary-color */
+    font-weight: 600;
+}
+
+/* --- ĐỊNH DẠNG ACTIVE CHO MỤC CHA CÓ MENU CON (khi chính mục cha đó được coi là active) --- */
+/* Cần điều chỉnh để mục cha có thể được làm nổi bật khi một con active */
+.sidebar-nav > ul > li.nav-item-dropdown.open > a, /* Khi dropdown mở */
+.sidebar-nav > ul > li.nav-item-dropdown.active > a /* Khi mục cha được đánh dấu active bằng JSP */
+{
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+}
+
+
+/* --- SUB-MENU --- */
+.sidebar-nav .sub-menu {
+    list-style: none;
+    padding-left: 28px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+.nav-item-dropdown.open .sub-menu {
+    max-height: 200px; /* Điều chỉnh max-height phù hợp với số lượng mục con */
+}
+.nav-item-dropdown.open > a .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+/* --- ĐỊNH DẠNG LINK TRONG SUB-MENU --- */
+.sidebar-nav .sub-menu li a {
+    padding-left: 24px;
+    font-size: 13px;
+    font-weight: 400;
+    background-color: transparent;
+    color: var(--text-secondary);
+}
+.sidebar-nav .sub-menu li a .feather {
+    display: none;
+}
+
+/* --- ĐỊNH DẠNG ACTIVE CHO MỤC CON --- */
+.sidebar-nav .sub-menu li a.active {
+    background-color: var(--primary-color-light) !important; 
+    color: var(--black) !important;
+    border-radius: 4px;
+}
+
+/* --- FOOTER --- */
+.sidebar-footer {
+    font-size: 10px;
+    color: var(--text-inactive);
+    padding: 0 8px;
+    white-space: nowrap;
+}
+
+/* --- KHI THU GỌN --- */
+.app-container.sidebar-collapsed .sidebar {
+    width: 88px;
+}
+.app-container.sidebar-collapsed .sidebar-nav .sub-menu {
+    display: none;
+}
+
+.app-container.sidebar-collapsed .sidebar-nav span,
+.app-container.sidebar-collapsed .sidebar-nav .dropdown-icon,
+.app-container.sidebar-collapsed .sidebar-footer p {
+    display: none;
+}
+.app-container.sidebar-collapsed .sidebar-nav ul li a {
+    justify-content: center;
+}
+.app-container.sidebar-collapsed .logo-img {
+    display: none;
+}
+.app-container.sidebar-collapsed .sidebar-header {
+    justify-content: center;
+}

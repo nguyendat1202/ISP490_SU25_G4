@@ -7,15 +7,22 @@ package vn.edu.fpt.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.Random;
+import vn.edu.fpt.dao.UserDAO;
+import vn.edu.fpt.util.EmailUtil;
 
 /**
  *
- * @author PC
+ * @author NGUYEN MINH
  */
-public class UserController extends HttpServlet {
+@WebServlet(name = "ForgotPasswordController", urlPatterns = {"/ForgotPasswordController"})
+public class ForgotPasswordController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +41,10 @@ public class UserController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewServlet1</title>");
+            out.println("<title>Servlet ForgotPasswordController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewServlet1 at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ForgotPasswordController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,7 +76,24 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        UserDAO dao = new UserDAO();
+        String email = request.getParameter("email");
+
+        if (!dao.emailExists(email)) {
+            request.setAttribute("error", "Email không tồn tại.");
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+            return;
+        }
+
+        String otp = String.valueOf(new Random().nextInt(900000) + 100000);
+        HttpSession session = request.getSession();
+        session.setAttribute("email", email);
+        session.setAttribute("otp", otp);
+        session.setAttribute("otpExpiresAt", LocalDateTime.now().plusMinutes(5));
+
+        EmailUtil.sendOTP(email, otp);
+        response.sendRedirect("verifyForgotPassword.jsp");
+
     }
 
     /**

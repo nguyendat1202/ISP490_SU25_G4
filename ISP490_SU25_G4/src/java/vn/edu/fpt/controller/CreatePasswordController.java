@@ -79,6 +79,11 @@ public class CreatePasswordController extends HttpServlet {
 
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
+        // --- SỬA LỖI Ở ĐÂY ---
+        // thông tin tên từ session
+        String lastName = (String) session.getAttribute("lastName");
+        String middleName = (String) session.getAttribute("middleName");
+        String firstName = (String) session.getAttribute("firstName");
 
         if (email == null) {
             response.sendRedirect("register.jsp");
@@ -97,11 +102,13 @@ public class CreatePasswordController extends HttpServlet {
             return;
         }
 
-        dao.createUser(email, password);
-
+        dao.createUser(lastName, middleName, firstName, email, password);
         // Xóa email khỏi session sau khi tạo tài khoản
         session.removeAttribute("email");
-
+        //edit
+        session.removeAttribute("lastName");
+        session.removeAttribute("middleName");
+        session.removeAttribute("firstName");
         // Chuyển về trang đăng nhập
         response.sendRedirect("login.jsp");
     }

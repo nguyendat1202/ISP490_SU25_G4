@@ -5,51 +5,55 @@
 package vn.edu.fpt.model;
 
 import java.sql.Timestamp;
-import java.sql.Date;
-
+import java.time.LocalDate;
+import java.io.Serializable;
 /**
  *
  * @author ducanh
  */
-public class User {
-    private int id;
+public class User implements Serializable {
+   private int id;
     private String email;
     private String passwordHash;
-    private String name;
+
+    // Các thuộc tính tên đã được tách ra
+    private String lastName;
+    private String middleName;
+    private String firstName;
+
+    // Thuộc tính công việc
     private String role;
     private String status;
-    private Timestamp createdAt;
-    private Timestamp updatedAt; 
-    
-    // --- Thuộc tính chi tiết của Profile ---
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String phone;
-    private String department; // Phòng làm việc
-    private String note;
-    private String avatarUrl;
-    private String idCard; // Số CMND/CCCD
-    private Date dob; // Ngày sinh (Date)
-    private String gender; // Giới tính
-    private String address; // Địa chỉ chi tiết (số nhà, đường)
-    private String cityDistrict; // Tỉnh/TP, Quận/Huyện
-    private String ward; // Phường/Xã
-    private String socialLink; // Link mạng xã hội
+    private String employeeCode;
+    private String position;
+    private String department;
 
+    // Thuộc tính hồ sơ cá nhân
+    private String phoneNumber;
+    private String notes;
+    private String avatarUrl;
+    private String identityCardNumber;
+    private LocalDate dateOfBirth; // Đổi sang LocalDate
+    private String gender;
+
+    // Thuộc tính địa chỉ đã được tách ra
+    private String address;
+    private String ward;
+    private String district;
+    private String city;
+
+    private String socialMediaLink;
+    private boolean isDeleted; // Dùng kiểu boolean cho is_deleted
+
+    // Dấu thời gian
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+
+    // Constructor mặc định
     public User() {
     }
 
-    public User(int id, String email, String passwordHash, String name, String role, String status, Timestamp createdAt, Timestamp updatedAt) {
-        this.id = id;
-        this.email = email;
-        this.passwordHash = passwordHash;
-        this.name = name;
-        this.role = role;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
+    // --- Bắt đầu phần Getters và Setters ---
 
     public int getId() {
         return id;
@@ -75,12 +79,28 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getRole() {
@@ -99,6 +119,126 @@ public class User {
         this.status = status;
     }
 
+    public String getEmployeeCode() {
+        return employeeCode;
+    }
+
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getIdentityCardNumber() {
+        return identityCardNumber;
+    }
+
+    public void setIdentityCardNumber(String identityCardNumber) {
+        this.identityCardNumber = identityCardNumber;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getWard() {
+        return ward;
+    }
+
+    public void setWard(String ward) {
+        this.ward = ward;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getSocialMediaLink() {
+        return socialMediaLink;
+    }
+
+    public void setSocialMediaLink(String socialMediaLink) {
+        this.socialMediaLink = socialMediaLink;
+    }
+
+    public boolean isIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -114,128 +254,17 @@ public class User {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
-    public String getPhone() {
-        return phone;
-    }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-    
-    // bổ sung
-     public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-    
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-    
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-    
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCityDistrict() {
-        return cityDistrict;
-    }
-    
-    public void setCityDistrict(String cityDistrict) {
-        this.cityDistrict = cityDistrict;
-    }
-    
-    public String getWard() {
-        return ward;
-    }
-
-    public void setWard(String ward) {
-        this.ward = ward;
-    }
-
-    public String getSocialLink() {
-        return socialLink;
-    }
-    
-    public void setSocialLink(String socialLink) {
-        this.socialLink = socialLink;
-    }
-    
-    public int getUserId() {
-    return this.id; 
-}
-    
-
+    // Hàm toString đã được cập nhật để hiển thị thông tin hữu ích hơn
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", email=" + email + ", passwordHash=" + passwordHash + ", name=" + name + ", role=" + role + ", status=" + status + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", role='" + role + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
-
 }

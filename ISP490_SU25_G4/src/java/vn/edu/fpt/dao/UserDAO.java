@@ -131,12 +131,41 @@ public class UserDAO {
         }
     }
     
-     public boolean ViewProfile(User user) {
-         
-        return false;
-         
-     }
-    
+ // Lấy all thông tin user dựa vào ID
+  public User getUserById(int userId) {
+    // Giả sử tên các cột trong DB của bạn là: id, name, email, phone, role, department, note, avatar_url
+    // HÃY THAY ĐỔI TÊN CỘT CHO ĐÚNG VỚI DATABASE CỦA BẠN
+    String sql = "SELECT * FROM Users WHERE id = ?";
+    try (Connection conn = new DBContext().getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setInt(1, userId);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setName(rs.getString("name"));
+            user.setEmail(rs.getString("email"));
+            user.setRole(rs.getString("role"));
+
+            // Lấy các trường mới (có thể null)
+            user.setPhone(rs.getString("phone")); // Thay "phone" bằng tên cột thật
+            user.setDepartment(rs.getString("department")); // Thay "department" bằng tên cột thật
+            user.setNote(rs.getString("note")); // Thay "note" bằng tên cột thật
+            user.setAvatarUrl(rs.getString("avatar_url")); // Thay "avatar_url" bằng tên cột thật
+            
+            user.setStatus(rs.getString("status"));
+            user.setCreatedAt(rs.getTimestamp("created_at"));
+            user.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+            return user;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return null; // Không tìm thấy user
+}  
 }
     
     

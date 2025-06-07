@@ -1,0 +1,51 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 6, 2025, 1:44:52 PM
+    Author     : NGUYEN MINH
+*/
+
+.main-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 22px;
+    border-bottom: 2px solid var(--border-color);
+    background-color: var(--white);
+    flex-shrink: 0;
+}
+.page-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.notification-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    color: var(--text-secondary);
+}
+.notification-btn .feather {
+    width: 20px;
+    height: 20px;
+}
+.notification-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: #E53E3E;
+    border-radius: 50%;
+    border: 1px solid var(--white);
+}
+

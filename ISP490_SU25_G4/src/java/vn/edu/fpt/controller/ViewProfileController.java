@@ -44,12 +44,12 @@ public class ViewProfileController extends HttpServlet {
             // Nếu chưa, chuyển hướng về trang đăng nhập
             response.sendRedirect("login.jsp");
             return; // Dừng việc thực thi tiếp theo
-        }
+    }
 
         // 3. Gọi DAO để lấy thông tin chi tiết nhất của user từ DB
         UserDAO userDAO = new UserDAO();
         User userProfile = userDAO.getUserById(loggedInUser.getId());
-
+   
         // 4. Gửi đối tượng user (userProfile) sang cho trang JSP
         if (userProfile != null) {
             // Đặt đối tượng vào request attribute với tên là "profile"

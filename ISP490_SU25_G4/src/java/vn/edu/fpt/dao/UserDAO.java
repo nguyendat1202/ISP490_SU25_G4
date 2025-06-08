@@ -16,12 +16,11 @@ import vn.edu.fpt.model.User;
  */
 public class UserDAO {
 
-     public User login(String email, String password) {
-        // Câu lệnh SELECT * vẫn đúng vì nó sẽ lấy tất cả các cột mới
-        String sql = "SELECT * FROM Users WHERE email = ?";
+    public User login(String email, String password) {
         
-        try (Connection conn = new DBContext().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql = "SELECT * FROM Users WHERE email = ?";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
@@ -39,7 +38,7 @@ public class UserDAO {
                 if (BCrypt.checkpw(password, hashedPassword)) {
                     // Mật khẩu đúng, tạo và trả về đối tượng User với ĐẦY ĐỦ thông tin
                     User user = new User();
-                    
+
                     // --- ĐÃ SỬA LẠI Ở ĐÂY ---
                     // Thay thế user.setName() bằng các setter cho từng phần của tên
                     user.setId(rs.getInt("id"));
@@ -47,7 +46,7 @@ public class UserDAO {
                     user.setMiddleName(rs.getString("middle_name"));
                     user.setFirstName(rs.getString("first_name"));
                     user.setEmail(rs.getString("email"));
-                    
+
                     // --- NÊN BỔ SUNG THÊM ---
                     // Lấy tất cả các thông tin hồ sơ khác
                     user.setPasswordHash(hashedPassword); // Có thể cần nếu bạn muốn dùng lại
@@ -60,12 +59,12 @@ public class UserDAO {
                     user.setNotes(rs.getString("notes"));
                     user.setAvatarUrl(rs.getString("avatar_url"));
                     user.setIdentityCardNumber(rs.getString("identity_card_number"));
-                    
+
                     // Lấy ngày sinh và chuyển sang LocalDate nếu cột trong DB là DATE
                     if (rs.getDate("date_of_birth") != null) {
                         user.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
                     }
-                    
+
                     user.setGender(rs.getString("gender"));
                     user.setAddress(rs.getString("address"));
                     user.setWard(rs.getString("ward"));
@@ -82,16 +81,15 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return null; // Trả về null nếu email không tồn tại hoặc sai mật khẩu
     }
 
-public void createUser(String lastName, String middleName, String firstName, String email, String rawPassword) {
+    public void createUser(String lastName, String middleName, String firstName, String email, String rawPassword) {
         // Câu lệnh SQL đã được sửa để dùng các cột tên mới
         String sql = "INSERT INTO Users (last_name, middle_name, first_name, email, password_hash, role, status) VALUES (?, ?, ?, ?, ?, 'cskh', 'active')";
 
-        try (Connection conn = new DBContext().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             // Mã hóa mật khẩu
             String hashedPassword = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
@@ -135,94 +133,108 @@ public void createUser(String lastName, String middleName, String firstName, Str
         }
         return false;
     }
-    
+
     public boolean updateUserProfile(User user) {
-    // Câu lệnh SQL để cập nhật các trường có thể chỉnh sửa
-    String sql = "UPDATE Users SET "
-            + "last_name = ?, middle_name = ?, first_name = ?, email = ?, phone_number = ?, "
-            + "department = ?, position = ?, notes = ?, identity_card_number = ?, date_of_birth = ?, "
-            + "gender = ?, address = ?, ward = ?, district = ?, city = ?, social_media_link = ?, "
-            + "avatar_url = ? "
-            + "WHERE id = ?";
+        // Câu lệnh SQL để cập nhật các trường có thể chỉnh sửa
+        String sql = "UPDATE Users SET "
+                + "last_name = ?, middle_name = ?, first_name = ?, email = ?, phone_number = ?, "
+                + "department = ?, position = ?, notes = ?, identity_card_number = ?, date_of_birth = ?, "
+                + "gender = ?, address = ?, ward = ?, district = ?, city = ?, social_media_link = ?, "
+                + "avatar_url = ? "
+                + "WHERE id = ?";
 
-    try (Connection conn = new DBContext().getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        // Thiết lập các tham số cho câu lệnh PreparedStatement
-        ps.setString(1, user.getLastName());
-        ps.setString(2, user.getMiddleName());
-        ps.setString(3, user.getFirstName());
-        ps.setString(4, user.getEmail());
-        ps.setString(5, user.getPhoneNumber());
-        ps.setString(6, user.getDepartment());
-        ps.setString(7, user.getPosition());
-        ps.setString(8, user.getNotes());
-        ps.setString(9, user.getIdentityCardNumber());
-        
-        // Chuyển đổi từ kiểu java.time.LocalDate sang java.sql.Date
-        if (user.getDateOfBirth() != null) {
-            ps.setDate(10, java.sql.Date.valueOf(user.getDateOfBirth()));
-        } else {
-            ps.setNull(10, java.sql.Types.DATE);
+            // Thiết lập các tham số cho câu lệnh PreparedStatement
+            ps.setString(1, user.getLastName());
+            ps.setString(2, user.getMiddleName());
+            ps.setString(3, user.getFirstName());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getPhoneNumber());
+            ps.setString(6, user.getDepartment());
+            ps.setString(7, user.getPosition());
+            ps.setString(8, user.getNotes());
+            ps.setString(9, user.getIdentityCardNumber());
+
+            // Chuyển đổi từ kiểu java.time.LocalDate sang java.sql.Date
+            if (user.getDateOfBirth() != null) {
+                ps.setDate(10, java.sql.Date.valueOf(user.getDateOfBirth()));
+            } else {
+                ps.setNull(10, java.sql.Types.DATE);
+            }
+
+            ps.setString(11, user.getGender());
+            ps.setString(12, user.getAddress());
+            ps.setString(13, user.getWard());
+            ps.setString(14, user.getDistrict());
+            ps.setString(15, user.getCity());
+            ps.setString(16, user.getSocialMediaLink());
+            ps.setString(17, user.getAvatarUrl());
+
+            // Điều kiện WHERE
+            ps.setInt(18, user.getId());
+
+            // Thực thi lệnh update và kiểm tra xem có hàng nào được cập nhật không
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0; // Trả về true nếu có ít nhất 1 dòng được cập nhật
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Trả về false nếu có lỗi xảy ra
         }
-        
-        ps.setString(11, user.getGender());
-        ps.setString(12, user.getAddress());
-        ps.setString(13, user.getWard());
-        ps.setString(14, user.getDistrict());
-        ps.setString(15, user.getCity());
-        ps.setString(16, user.getSocialMediaLink());
-        ps.setString(17, user.getAvatarUrl());
-        
-        // Điều kiện WHERE
-        ps.setInt(18, user.getId());
-
-        // Thực thi lệnh update và kiểm tra xem có hàng nào được cập nhật không
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected > 0; // Trả về true nếu có ít nhất 1 dòng được cập nhật
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false; // Trả về false nếu có lỗi xảy ra
     }
-}
-    
+
 // // Lấy all thông tin user dựa vào ID
-  public User getUserById(int userId) {
-    // Giả sử tên các cột trong DB của bạn là: id, name, email, phone, role, department, note, avatar_url
-    // HÃY THAY ĐỔI TÊN CỘT CHO ĐÚNG VỚI DATABASE CỦA BẠN
-    String sql = "SELECT * FROM Users WHERE id = ?";
-    try (Connection conn = new DBContext().getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
+    public User getUserById(int userId) {
+        
+        String sql = "SELECT * FROM Users WHERE id = ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setInt(1, userId);
-        ResultSet rs = ps.executeQuery();
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            User user = new User();
-            user.setId(rs.getInt("id"));
-            user.setName(rs.getString("name"));
-            user.setEmail(rs.getString("email"));
-            user.setRole(rs.getString("role"));
+            if (rs.next()) {
+                // Sử dụng lại logic tương tự hàm login để lấy đầy đủ thông tin
+                User user = new User();
 
-            // Lấy các trường mới (có thể null)
-            user.setPhone(rs.getString("phone")); // Thay "phone" bằng tên cột thật
-            user.setDepartment(rs.getString("department")); // Thay "department" bằng tên cột thật
-            user.setNote(rs.getString("note")); // Thay "note" bằng tên cột thật
-            user.setAvatarUrl(rs.getString("avatar_url")); // Thay "avatar_url" bằng tên cột thật
-            
-            user.setStatus(rs.getString("status"));
-            user.setCreatedAt(rs.getTimestamp("created_at"));
-            user.setUpdatedAt(rs.getTimestamp("updated_at"));
+                user.setId(rs.getInt("id"));
+                user.setLastName(rs.getString("last_name"));
+                user.setMiddleName(rs.getString("middle_name"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPasswordHash(rs.getString("password_hash"));
+                user.setRole(rs.getString("role"));
+                user.setStatus(rs.getString("status"));                
+                user.setEmployeeCode(rs.getString("employee_code"));
+                user.setPosition(rs.getString("position"));
+                user.setDepartment(rs.getString("department"));
+                user.setPhoneNumber(rs.getString("phone_number"));
+                user.setNotes(rs.getString("notes")); 
+                user.setAvatarUrl(rs.getString("avatar_url"));
+                user.setIdentityCardNumber(rs.getString("identity_card_number"));
+                
+                if (rs.getDate("date_of_birth") != null) {
+                    user.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
+                }
+                
+                user.setGender(rs.getString("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setWard(rs.getString("ward"));
+                user.setDistrict(rs.getString("district"));
+                user.setCity(rs.getString("city"));
+                user.setSocialMediaLink(rs.getString("social_media_link"));
+                user.setIsDeleted(rs.getBoolean("is_deleted"));
+                user.setCreatedAt(rs.getTimestamp("created_at"));
+                user.setUpdatedAt(rs.getTimestamp("updated_at"));
+                
+                
+                
 
-            return user;
+                return user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return null; // Không tìm thấy user
     }
-    return null; // Không tìm thấy user
-}  
 }
-    
-    
-

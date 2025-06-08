@@ -1,0 +1,296 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 8, 2025, 12:02:34 PM
+    Author     : NGUYEN MINH
+*/
+.product-content-container {
+    width: 100%;
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.product-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.search-filter-group {
+    display: flex;
+    gap: 12px; 
+    align-items: center;
+}
+
+.search-input-wrapper {
+    width: 250px;
+}
+
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 6px; 
+    border: 1px solid #B2D6D9;
+    gap: 8px; 
+}
+
+.input-with-icon input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 14px; 
+    font-family: 'Inter', sans-serif;
+    color: #A4A4A4;
+}
+
+.filter-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px; 
+    background: white;
+    border-radius: 6px; 
+    border: 1px solid #B2D6D9;
+    gap: 8px; 
+    cursor: pointer;
+    color: #666666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.input-with-icon .icon {
+    color: #666666;
+}
+
+.action-buttons-group {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    background: #298E94;
+    border-radius: 6px; 
+    gap: 8px;
+    border: none;
+    color: white;
+    font-size: 14px; /* THAY ĐỔI: Giảm cỡ chữ */
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 600;
+    line-height: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-primary .icon {
+    color: white;
+}
+
+.product-table-wrapper {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #B2D6D9;
+    overflow-x: auto; 
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table thead {
+    background: #F1FEFF;
+    border-bottom: 1px solid #B2D6D9;
+}
+
+.product-table th, .product-table td {
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #666666;
+    line-height: 18px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.product-table th {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; 
+    background: #F1FEFF;
+    border-bottom: 1px solid #B2D6D9;
+    padding: 12px 12px; 
+    font-size: 14px;
+    color: #4D4D4D; 
+    line-height: 18px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.product-table td {
+    font-family: 'Inter', sans-serif;
+    color: #4D4D4D;
+    padding: 16px 12px;
+}
+
+.col-stt {
+    width: 44px;
+    text-align: center;
+}
+.col-name {
+    min-width: 200px;
+}
+.col-group {
+    min-width: 210px;
+}
+.col-desc {
+    min-width: 200px;
+}
+.col-price {
+    min-width: 200px;
+}
+.col-actions {
+    width: 150px;
+    text-align: center;
+}
+
+.action-link {
+    color: #298E94;
+    text-decoration: none;
+    font-weight: 500;
+}
+.action-link.delete {
+    color: #E53935;
+}
+
+.action-icon-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px; 
+}
+
+
+.action-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.action-link:hover {
+    transform: scale(1.2); 
+}
+
+.action-link.icon-view {
+    color: #298E94; 
+}
+.action-link.icon-edit {
+    color: #1E88E5; 
+}
+.action-link.icon-delete {
+    color: #E53935; 
+}
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    background-color: #F8F9FA;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #E9ECEF;
+    margin-top: 16px; 
+    flex-wrap: wrap; 
+}
+
+.filter-controls {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+}
+
+.filter-group select,
+.filter-group input[type="number"] {
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: 1px solid #CED4DA;
+    background-color: white;
+    font-size: 14px;
+    min-width: 150px;
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.price-inputs input[type="number"] {
+    width: 100px; 
+}
+
+.filter-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-apply-filter, .btn-reset-filter {
+    height: 38px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-apply-filter {
+    background-color: #298E94;
+    color: white;
+}
+.btn-apply-filter:hover {
+    background-color: #21787d;
+}
+
+.btn-reset-filter {
+    background-color: #6C757D;
+    color: white;
+}
+.btn-reset-filter:hover {
+    background-color: #5a6268;
+}
+
+.filter-button.active {
+    background-color: #e8f7f8;
+    border-color: #298E94;
+}
+

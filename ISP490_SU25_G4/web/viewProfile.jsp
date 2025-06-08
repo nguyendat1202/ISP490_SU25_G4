@@ -44,8 +44,7 @@
                             <div class="card-body-split">
                                 <div class="avatar-section">                                   
                                     <img src="${profile.avatarUrl}" alt="Ảnh đại diện" id="avatarPreview">
-                                    <input type="file" id="avatarUpload" hidden accept="image/*">
-                                    <button type="button" class="btn btn-secondary" id="btnChooseAvatar">Chọn ảnh</button>
+                    
                                 </div>
                                 <div class="info-section">
                                     <h2>Thông tin khởi tạo</h2>

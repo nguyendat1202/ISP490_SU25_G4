@@ -103,18 +103,18 @@ public class EditProfileController extends HttpServlet {
 
         HttpSession session = request.getSession(false); // Dùng false để không tạo session mới nếu chưa có
 
-        // THÊM CÁC DÒNG NÀY ĐỂ DEBUG
-        System.out.println("\n--- UPDATE PROFILE SUBMITTED ---");
-        if (session != null) {
-            System.out.println("Session ID KHI CẬP NHẬT: " + session.getId());
-            // In ra đối tượng user để xem nó có thật sự là null không
-            System.out.println("User lấy từ session: " + session.getAttribute("user"));
-        } else {
-            System.out.println("SESSION KHÔNG TỒN TẠI KHI CẬP NHẬT!");
-        }
-        // THÊM DÒNG NÀY VÀO
-        System.out.println("\n3. === TRONG EditProfileController (doPost) ===");
-        System.out.println("User trong session là: " + session.getAttribute("user"));
+//        // THÊM CÁC DÒNG NÀY ĐỂ DEBUG
+//        System.out.println("\n--- UPDATE PROFILE SUBMITTED ---");
+//        if (session != null) {
+//            System.out.println("Session ID KHI CẬP NHẬT: " + session.getId());
+//            // In ra đối tượng user để xem nó có thật sự là null không
+//            System.out.println("User lấy từ session: " + session.getAttribute("user"));
+//        } else {
+//            System.out.println("SESSION KHÔNG TỒN TẠI KHI CẬP NHẬT!");
+//        }
+//        // THÊM DÒNG NÀY VÀO
+//        System.out.println("\n3. === TRONG EditProfileController (doPost) ===");
+//        System.out.println("User trong session là: " + session.getAttribute("user"));
 
         User currentUser = (User) session.getAttribute("user");
 

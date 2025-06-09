@@ -98,7 +98,7 @@ public class EditProfileController extends HttpServlet {
 
         // Nếu người dùng chưa đăng nhập, không cho phép cập nhật
         if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("dashboard.jsp");
             return;
         }
 

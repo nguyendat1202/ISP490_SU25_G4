@@ -49,7 +49,7 @@
 
                 <ul class="sub-menu">
                     <li>
-                        <a href="${pageContext.request.contextPath}/viewProfile.jsp" class="${currentPage == 'viewProfile' ? 'active' : ''}">
+                        <a href="${pageContext.request.contextPath}/viewProfile" class="${currentPage == 'viewProfile' ? 'active' : ''}">
                             Xem thông tin cá nhân
                         </a>
                     </li>

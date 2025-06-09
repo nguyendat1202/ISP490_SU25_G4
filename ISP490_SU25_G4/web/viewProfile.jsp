@@ -172,7 +172,7 @@
 
                         <div class="form-actions">
                             <button type="button" class="btn btn-secondary" id="btnClose">Đóng</button>
-                            <a href="editProfile.jsp?id=${profile.id}" class="btn btn-primary" role="button">Sửa thông tin</a>
+                            <a href="editProfile?id=${profile.id}" class="btn btn-primary" role="button">Sửa thông tin</a>
                         </div>
                         </form>
                     </div>           

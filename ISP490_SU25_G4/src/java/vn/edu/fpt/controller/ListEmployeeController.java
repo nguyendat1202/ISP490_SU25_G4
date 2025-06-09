@@ -11,18 +11,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.util.Random;
+import java.util.List;
 import vn.edu.fpt.dao.UserDAO;
-import vn.edu.fpt.common.EmailUtil;
+import vn.edu.fpt.model.User;
 
 /**
  *
  * @author ducanh
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
-public class RegisterController extends HttpServlet {
+@WebServlet(name = "ListEmployeeController", urlPatterns = {"/listEmployee"})
+public class ListEmployeeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +34,19 @@ public class RegisterController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RegisterController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RegisterController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        // 1. Khởi tạo DAO
+        UserDAO dao = new UserDAO();
+        
+        // 2. Gọi phương thức DAO để lấy danh sách tất cả nhân viên
+        List<User> employeeList = dao.getAllUsers();
+        
+        // 3. Đặt danh sách này vào request attribute để gửi tới JSP
+        //    Tên "employeeList" phải khớp với thuộc tính 'items' trong <c:forEach> của JSP
+        request.setAttribute("employeeList", employeeList);
+        
+        // 4. Chuyển tiếp yêu cầu tới file listEmployee.jsp để hiển thị
+        request.getRequestDispatcher("listEmployee.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,36 +75,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO dao = new UserDAO();
-        String email = request.getParameter("email");
-
-        // Lấy giá trị của checkbox "terms"
-        String terms = request.getParameter("terms");
-
-        // === VALIDATE CHECKBOX ===
-        // Nếu checkbox không được tick, tham số 'terms' sẽ là null.
-        if (terms == null) {
-            request.setAttribute("error", "Bạn phải đồng ý với điều khoản dịch vụ để đăng ký.");
-            // Giữ lại email người dùng đã nhập để họ không cần nhập lại
-            request.setAttribute("email", email);
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-            return; // Dừng xử lý
-        }
-
-        if (dao.emailExists(email)) {
-            request.setAttribute("error", "Email đã được đăng kí");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-            return;
-        }
-        String otp = String.valueOf(new Random().nextInt(900000) + 100000);
-
-        HttpSession session = request.getSession();
-        session.setAttribute("email", email);
-        session.setAttribute("otp", otp);
-        session.setAttribute("otpExpiresAt", LocalDateTime.now().plusMinutes(5));
-
-        EmailUtil.sendOTP(email, otp);
-        response.sendRedirect("verifyOTP.jsp");
+        processRequest(request, response);
     }
 
     /**

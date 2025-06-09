@@ -7,19 +7,55 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Author     : NGUYEN MINH
 */
 
+/* Thêm đoạn này vào file CSS của bạn, ví dụ: css/addEmployee.css */
+
+
+/* --- CSS cho thông báo lỗi --- */
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.alert-danger {
+    color: #721c24; /* Màu chữ đỏ sẫm */
+    background-color: #f8d7da; /* Màu nền đỏ nhạt */
+    border-color: #f5c6cb; /* Màu viền đỏ nhạt */
+}
+
+.alert-danger strong {
+    font-weight: bold;
+}
+
+.name-fields-group {
+    display: flex;         /* Bật Flexbox để các item con nằm trên một hàng */
+    gap: 16px;             /* Tạo khoảng cách 16px giữa các ô input */
+    width: 100%;           /* Đảm bảo nhóm này chiếm toàn bộ chiều rộng có thể */
+}
+
+/* Tùy chọn: Đảm bảo các ô input trong nhóm này có chiều rộng bằng nhau
+  và lấp đầy không gian.
+*/
+.name-fields-group .form-group {
+    flex: 1;               /* Cho phép mỗi .form-group co giãn bằng nhau */
+}
+
 .add-employee-page {
-    display: flex; 
+    display: flex;
     gap: 24px;
     align-items: flex-start;
 }
 
 
 .avatar-panel {
-    flex: 0 0 200px; 
+    flex: 0 0 200px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    position: sticky; 
+    position: sticky;
     top: 24px;
 }
 
@@ -75,7 +111,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .form-card-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr 1fr;
     gap: 20px 30px;
 }
 
@@ -137,7 +173,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .page-actions-footer {
     padding: 16px 32px;
-    background-color: rgba(255, 255, 255, 0.85); 
+    background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(8px); /* Hiệu ứng blur */
     border-top: 1px solid #e2e8f0;
     display: flex;

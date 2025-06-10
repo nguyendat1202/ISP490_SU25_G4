@@ -243,7 +243,7 @@ public class UserDAO {
             // Sử dụng PreparedStatement để an toàn và hiệu quả
             try (PreparedStatement psGetMaxId = conn.prepareStatement(queryGetMaxId); ResultSet rs = psGetMaxId.executeQuery()) {
 
-                String lastId = "NV00000"; // Giá trị cơ sở để bắt đầu
+                String lastId = "DP00000"; // Giá trị cơ sở để bắt đầu
                 if (rs.next() && rs.getString(1) != null) {
                     lastId = rs.getString(1);
                 }
@@ -253,7 +253,7 @@ public class UserDAO {
                 number++;
 
                 // Định dạng lại mã mới
-                newEmployeeId = String.format("NV%05d", number);
+                newEmployeeId = String.format("DP%05d", number);
             }
 
             // Nếu không tạo được mã mới thì dừng lại

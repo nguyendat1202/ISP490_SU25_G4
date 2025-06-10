@@ -56,7 +56,7 @@
                     <li>
                         <a href="${pageContext.request.contextPath}/changePassword.jsp" class="${currentPage == 'changePassword' ? 'active' : ''}">Đổi mật khẩu</a>
                     </li>
-                    <li><a href="${pageContext.request.contextPath}/logout.jsp">Đăng xuất</a></li>
+                    
                 </ul>
             </li>
 
@@ -67,6 +67,13 @@
                     <li><a href="${pageContext.request.contextPath}/dailyReport.jsp" class="${currentPage == 'dailyReport' ? 'active' : ''}">Báo cáo hàng ngày</a></li>
                     <li><a href="${pageContext.request.contextPath}/monthlyReport.jsp" class="${currentPage == 'monthlyReport' ? 'active' : ''}">Báo cáo hàng tháng</a></li>
                 </ul>
+            </li>
+            
+            <li>
+                <a href="${pageContext.request.contextPath}/logout.jsp">
+                    <i data-feather="log-out"></i>
+                    <span>Đăng xuất</span>
+                </a>
             </li>
         </ul>
     </nav>

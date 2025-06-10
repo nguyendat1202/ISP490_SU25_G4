@@ -23,7 +23,7 @@ public class DBContext {
             // Edit URL, username, password to authenticate with your MySQL Server
             String url = "jdbc:mysql://localhost:3306/datn";
             String userName = "root";
-            String password = "1234";
+            String password = "123456";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, userName, password);

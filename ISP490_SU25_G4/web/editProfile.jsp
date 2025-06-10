@@ -171,7 +171,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <a href="viewProfile.jsp?id=${user.id}" class="btn btn-secondary" role="button">Hủy</a>
+                            <a href="viewProfile?id=${user.id}" class="btn btn-secondary" role="button">Hủy</a>
                             <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                         </div>
                     </form>

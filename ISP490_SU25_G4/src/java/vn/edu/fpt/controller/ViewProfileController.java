@@ -34,10 +34,15 @@ public class ViewProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+         // --- BẮT ĐẦU ĐOẠN CODE KIỂM TRA SESSION ---
+    HttpSession session = request.getSession();
+
+    // THÊM DÒNG NÀY VÀO
+    System.out.println("\n1. === TRONG ViewProfileController (doGet) ===");
+    System.out.println("User trong session là: " + session.getAttribute("user"));
         // 1. Lấy user đang đăng nhập từ session
-        HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("account"); // Giả sử khi đăng nhập bạn đã lưu user vào session với key là "account"
+//        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user"); // Giả sử khi đăng nhập bạn đã lưu user vào session với key là "account"
 
         // 2. Kiểm tra xem người dùng đã đăng nhập chưa
         if (loggedInUser == null) {

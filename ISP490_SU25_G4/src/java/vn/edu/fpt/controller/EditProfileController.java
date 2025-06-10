@@ -68,7 +68,25 @@ public class EditProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        HttpSession session = request.getSession(false);
+// THÊM DÒNG NÀY VÀO
+        System.out.println("\n2. === TRONG EditProfileController (doGet) ===");
+        System.out.println("User trong session là: " + session.getAttribute("user"));
+
+        // Kiểm tra user có trong session không
+        if (session != null && session.getAttribute("user") != null) {
+            // Lấy user từ session để hiển thị trên form edit
+            User userToEdit = (User) session.getAttribute("user");
+            request.setAttribute("user", userToEdit); // Đặt user vào request để trang jsp có thể lấy
+
+            // Chuyển tiếp đến trang JSP
+            request.getRequestDispatcher("editProfile.jsp").forward(request, response);
+        } else {
+            // Nếu không có user trong session, đá về trang đăng nhập
+            System.out.println(">>> LỖI: Không tìm thấy user trong session khi vào doGet của EditProfile.");
+            response.sendRedirect("login.jsp");
+        }
     }
 
     /**
@@ -85,20 +103,24 @@ public class EditProfileController extends HttpServlet {
 
         HttpSession session = request.getSession(false); // Dùng false để không tạo session mới nếu chưa có
 
-        // THÊM CÁC DÒNG NÀY ĐỂ DEBUG
-        System.out.println("\n--- UPDATE PROFILE SUBMITTED ---");
-        if (session != null) {
-            System.out.println("Session ID KHI CẬP NHẬT: " + session.getId());
-            // In ra đối tượng user để xem nó có thật sự là null không
-            System.out.println("User lấy từ session: " + session.getAttribute("user"));
-        } else {
-            System.out.println("SESSION KHÔNG TỒN TẠI KHI CẬP NHẬT!");
-        }
+//        // THÊM CÁC DÒNG NÀY ĐỂ DEBUG
+//        System.out.println("\n--- UPDATE PROFILE SUBMITTED ---");
+//        if (session != null) {
+//            System.out.println("Session ID KHI CẬP NHẬT: " + session.getId());
+//            // In ra đối tượng user để xem nó có thật sự là null không
+//            System.out.println("User lấy từ session: " + session.getAttribute("user"));
+//        } else {
+//            System.out.println("SESSION KHÔNG TỒN TẠI KHI CẬP NHẬT!");
+//        }
+//        // THÊM DÒNG NÀY VÀO
+//        System.out.println("\n3. === TRONG EditProfileController (doPost) ===");
+//        System.out.println("User trong session là: " + session.getAttribute("user"));
+
         User currentUser = (User) session.getAttribute("user");
 
         // Nếu người dùng chưa đăng nhập, không cho phép cập nhật
         if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("dashboard.jsp");
             return;
         }
 
@@ -164,7 +186,7 @@ public class EditProfileController extends HttpServlet {
             if (isUpdated) {
                 session.setAttribute("user", currentUser);
                 // Bạn của bạn (người làm trang view) sẽ xử lý việc hiển thị thông báo này
-                response.sendRedirect("viewProfile.jsp?id=" + currentUser.getId() + "&status=success");
+                response.sendRedirect("viewProfile?id=" + currentUser.getId() + "&status=success");
             } else {
                 // Bạn của bạn (người làm trang edit) sẽ xử lý việc hiển thị thông báo này
                 response.sendRedirect("editProfile?id=" + currentUser.getId() + "&status=fail");

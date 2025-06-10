@@ -21,7 +21,7 @@ import java.sql.SQLException;
 public class UserDAO {
 
     public User login(String email, String password) {
-        // Câu lệnh SELECT * vẫn đúng vì nó sẽ lấy tất cả các cột mới
+      
         String sql = "SELECT * FROM Users WHERE email = ?";
 
         try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -89,30 +89,30 @@ public class UserDAO {
         return null; // Trả về null nếu email không tồn tại hoặc sai mật khẩu
     }
 
-//    public void createUser(String lastName, String middleName, String firstName, String email, String rawPassword) {
-//        // Câu lệnh SQL đã được sửa để dùng các cột tên mới
-//        String sql = "INSERT INTO Users (last_name, middle_name, first_name, email, password_hash, role, status) VALUES (?, ?, ?, ?, ?, 'cskh', 'active')";
-//
-//        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-//
-//            // Mã hóa mật khẩu
-//            String hashedPassword = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
-//
-//            // Thiết lập các tham số cho PreparedStatement theo đúng thứ tự
-//            ps.setString(1, lastName);
-//            ps.setString(2, middleName);
-//            ps.setString(3, firstName);
-//            ps.setString(4, email);
-//            ps.setString(5, hashedPassword);
-//
-//            // Thực thi câu lệnh
-//            ps.executeUpdate();
-//
-//        } catch (Exception e) {
-//            // In ra lỗi để dễ dàng gỡ rối
-//            e.printStackTrace();
-//        }
-//    }
+   public void createUser(String lastName, String middleName, String firstName, String email, String rawPassword) {
+       // Câu lệnh SQL đã được sửa để dùng các cột tên mới
+       String sql = "INSERT INTO Users (last_name, middle_name, first_name, email, password_hash, role, status) VALUES (?, ?, ?, ?, ?, 'cskh', 'active')";
+
+       try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+           // Mã hóa mật khẩu
+           String hashedPassword = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
+
+           // Thiết lập các tham số cho PreparedStatement theo đúng thứ tự
+           ps.setString(1, lastName);
+           ps.setString(2, middleName);
+           ps.setString(3, firstName);
+           ps.setString(4, email);
+           ps.setString(5, hashedPassword);
+
+           // Thực thi câu lệnh
+           ps.executeUpdate();
+
+       } catch (Exception e) {
+           // In ra lỗi để dễ dàng gỡ rối
+           e.printStackTrace();
+       }
+   }
     public void updatePassword(String email, String rawPassword) {
         String sql = "UPDATE Users SET password_hash = ? WHERE email = ?";
         try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -189,8 +189,7 @@ public class UserDAO {
 
 // // Lấy all thông tin user dựa vào ID
     public User getUserById(int userId) {
-        // Giả sử tên các cột trong DB của bạn là: id, name, email, phone, role, department, note, avatar_url
-        // HÃY THAY ĐỔI TÊN CỘT CHO ĐÚNG VỚI DATABASE CỦA BẠN
+
         String sql = "SELECT * FROM Users WHERE id = ?";
         try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -198,21 +197,40 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                // Sử dụng lại logic tương tự hàm login để lấy đầy đủ thông tin
                 User user = new User();
+
                 user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setMiddleName(rs.getString("middle_name"));
+                user.setFirstName(rs.getString("first_name"));
                 user.setEmail(rs.getString("email"));
+                user.setPasswordHash(rs.getString("password_hash"));
                 user.setRole(rs.getString("role"));
-
-                // Lấy các trường mới (có thể null)
-                user.setPhone(rs.getString("phone")); // Thay "phone" bằng tên cột thật
-                user.setDepartment(rs.getString("department")); // Thay "department" bằng tên cột thật
-                user.setNote(rs.getString("note")); // Thay "note" bằng tên cột thật
-                user.setAvatarUrl(rs.getString("avatar_url")); // Thay "avatar_url" bằng tên cột thật
-
-                user.setStatus(rs.getString("status"));
+                user.setStatus(rs.getString("status"));                
+                user.setEmployeeCode(rs.getString("employee_code"));
+                user.setPosition(rs.getString("position"));
+                user.setDepartment(rs.getString("department"));
+                user.setPhoneNumber(rs.getString("phone_number"));
+                user.setNotes(rs.getString("notes")); 
+                user.setAvatarUrl(rs.getString("avatar_url"));
+                user.setIdentityCardNumber(rs.getString("identity_card_number"));
+                
+                if (rs.getDate("date_of_birth") != null) {
+                    user.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
+                }
+                
+                user.setGender(rs.getString("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setWard(rs.getString("ward"));
+                user.setDistrict(rs.getString("district"));
+                user.setCity(rs.getString("city"));
+                user.setSocialMediaLink(rs.getString("social_media_link"));
+                user.setIsDeleted(rs.getBoolean("is_deleted"));
                 user.setCreatedAt(rs.getTimestamp("created_at"));
                 user.setUpdatedAt(rs.getTimestamp("updated_at"));
+                
+                
 
                 return user;
             }
@@ -221,6 +239,7 @@ public class UserDAO {
         }
         return null; // Không tìm thấy user
     }
+
 
     /**
      * Tự động tạo mã nhân viên mới và thêm người dùng vào cơ sở dữ liệu.
@@ -398,4 +417,5 @@ public class UserDAO {
         }
         return userList;
     }
+
 }

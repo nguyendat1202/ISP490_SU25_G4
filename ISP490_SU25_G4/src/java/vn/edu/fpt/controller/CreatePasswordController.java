@@ -102,7 +102,7 @@ public class CreatePasswordController extends HttpServlet {
             return;
         }
 
-        dao.createUser(lastName, middleName, firstName, email, password);
+        dao.createNewEmployee(lastName, middleName, firstName, email, password);
         // Xóa email khỏi session sau khi tạo tài khoản
         session.removeAttribute("email");
         //edit

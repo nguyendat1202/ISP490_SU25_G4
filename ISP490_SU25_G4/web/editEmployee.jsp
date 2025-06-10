@@ -170,7 +170,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <a href="viewEmployee.jsp?id=${nhanVien.maNhanVien}" class="btn btn-secondary" role="button">Hủy</a>
+                            <a href="viewEmployee?id=${nhanVien.maNhanVien}" class="btn btn-secondary" role="button">Hủy</a>
                             <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                         </div>
                     </form>

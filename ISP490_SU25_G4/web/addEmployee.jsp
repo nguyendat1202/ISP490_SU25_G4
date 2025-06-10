@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="currentPage" value="listEmployee" />
 <!DOCTYPE html>
 <html lang="vi">
@@ -32,12 +32,6 @@
                     <div class="page-title">Thêm nhân viên</div>
                 </header>
 
-                <c:if test="${not empty error}">
-                    <div class="alert alert-danger">
-                        <strong>Lỗi!</strong> ${error}
-                    </div>
-                </c:if>
-
                 <form action="addEmployee" method="POST" enctype="multipart/form-data">
                     <section class="content-body">
                         <div class="add-employee-page">
@@ -58,31 +52,18 @@
                                 <div class="form-card">
                                     <h3 class="form-card-title">Thông tin khởi tạo</h3>
                                     <div class="form-card-grid">
-
                                         <div class="form-group">
-                                            <label for="employeeCode">Mã nhân viên</label>
-                                            <input type="text" id="employeeCode" name="employeeCode" value="${newEmployeeCode}" readonly>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="lastName">Họ</label>
-                                            <input type="text" id="lastName" name="lastName" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="middleName">Tên đệm</label>
-                                            <input type="text" id="middleName" name="middleName">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="firstName">Tên</label>
-                                            <input type="text" id="firstName" name="firstName" required>
+                                            <label for="employeeName">Tên nhân viên</label>
+                                            <input type="text" id="employeeName" name="employeeName" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="phone">Số điện thoại</label>
                                             <input type="tel" id="phone" name="phone" required>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label>Mã nhân viên</label>
+                                            <input type="text" value="Mã sẽ được tạo tự động" disabled>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -90,18 +71,12 @@
                                     <h3 class="form-card-title">Thông tin công việc</h3>
                                     <div class="form-card-grid">
                                         <div class="form-group">
-                                            <label for="department">Phòng làm việc</label>
-                                            <select id="department" name="department">
-                                                <option>Kĩ thuật</option>
-                                                <option>CSKH</option>
-                                            </select>
+                                            <label for="position">Phòng làm việc</label>
+                                            <select id="position" name="position"><option>-- Chọn phòng --</option></select>
                                         </div> 
                                         <div class="form-group">
                                             <label for="position">Chức vụ</label>
-                                            <select id="position" name="position">
-                                                <option>Quản lý</option>
-                                                <option>Nhân viên</option>
-                                            </select>
+                                            <select id="position" name="position"><option>-- Chọn chức vụ --</option></select>
                                         </div>                                                                                
                                     </div>
                                     <div class="form-group full-width" style="margin-top: 20px;">

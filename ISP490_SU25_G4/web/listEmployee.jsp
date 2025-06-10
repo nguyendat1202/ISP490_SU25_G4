@@ -43,7 +43,7 @@
                             <i data-feather="search"></i>
                             <input type="text" placeholder="Tìm kiếm nhân viên">
                         </div>
-                        <a href="addEmployee" class="btn btn-primary">
+                        <a href="addEmployee.jsp" class="btn btn-primary">
                             <i data-feather="plus"></i>
                             <span>Thêm nhân viên</span>
                         </a>
@@ -65,38 +65,33 @@
                                         <th class="col-actions">Hành động</th>
                                     </tr>
                                 </thead>
-                                <%-- File: listEmployee.jsp --%>
                                 <tbody>
                                     <c:forEach var="employee" items="${employeeList}">
+                                        <%-- Để nút "Xem" hoạt động, thẻ <tr> cần các thuộc tính data-* này --%>
                                         <tr data-id="${employee.id}"
-                                            <%-- SỬA: Ghép họ và tên để hiển thị và dùng cho các thuộc tính data-* --%>
-                                            data-name="${employee.lastName} ${employee.middleName} ${employee.firstName}"
                                             data-code="${employee.employeeCode}"
-                                            data-phone="${employee.phoneNumber}" <%-- SỬA: thành phoneNumber --%>
-                                            data-idcard="${employee.identityCardNumber}" <%-- SỬA: thành identityCardNumber --%>
+                                            data-name="${employee.employeeName}"
+                                            data-phone="${employee.phone}"
+                                            data-idcard="${employee.idCard}"
                                             data-position="${employee.position}"
                                             data-department="${employee.department}">
 
                                             <td class="col-checkbox"><input type="checkbox" name="employeeId" value="${employee.id}" /></td>
 
+                                            
                                             <td>${employee.employeeCode}</td>
-
-                                            <%-- SỬA: Ghép các thành phần tên lại để hiển thị đầy đủ --%>
-                                            <td>${employee.lastName} ${employee.middleName} ${employee.firstName}</td>
-
-                                            <%-- SỬA: Dùng đúng tên thuộc tính trong model User --%>
-                                            <td>${employee.phoneNumber}</td>
-                                            <td>${employee.identityCardNumber}</td>
-
+                                            <td>${employee.employeeName}</td>
+                                            <td>${employee.phone}</td>
+                                            <td>${employee.idCard}</td>
                                             <td>${employee.position}</td>
                                             <td>${employee.department}</td>
 
+                                            <%-- PHẦN 3: ĐẶT 3 NÚT HÀNH ĐỘNG VÀO ĐÚNG VỊ TRÍ --%>
                                             <td class="col-actions">
                                                 <div class="action-buttons">
-                                                    <a href="viewEmployee?id=${employee.id}" class="view-btn" title="Xem chi tiết"><i data-feather="eye"></i></a>
+                                                    <a href="viewEmployee.jsp" class="view-btn" title="Xem chi tiết"><i data-feather="eye"></i></a>
                                                     <a href="editEmployee?id=${employee.id}" title="Sửa"><i data-feather="edit-2"></i></a>
-                                                    <a href="deleteEmployee?id=${employee.id}" title="Xóa" 
-                                                       onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên ${employee.lastName} ${employee.firstName} không?');">
+                                                    <a href="deleteEmployee?id=${employee.id}" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên ${employee.employeeName} không?');">
                                                         <i data-feather="trash-2"></i>
                                                     </a>
                                                 </div>

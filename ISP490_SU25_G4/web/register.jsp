@@ -1,4 +1,4 @@
-<%--
+<%-- 
     Document   : register
     Created on : May 29, 2025, 10:48:23 AM
     Author     : NGUYEN MINH
@@ -23,23 +23,20 @@
                     <h2>Tạo tài khoản DPCMR</h2>
                     <form method="post" action="RegisterController">
                         <label for="email">Địa chỉ email của bạn</label>
-                        <input type="email" id="email" name="email" placeholder="name@gmail.com" required value="${param.email}"> <%-- Giữ lại email đã nhập khi có lỗi --%>
+                        <input type="email" id="email" name="email" placeholder="name@gmail.com" required>
 
                         <div class="checkbox">
-                            <%-- Thay đổi name và id thành 'terms' cho rõ nghĩa --%>
-                            <input type="checkbox" id="terms" name="terms" required>
-                            <%-- Sửa lại label cho đúng với chức năng --%>
-                            <label for="terms" style="display:inline" >Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a></label>
+                            <input type="checkbox" id="subscribe" name="subscribe" required>
+                            <label for="subscribe" style="display:inline" >Tôi đồng ý nhận thông tin cập nhật sản phẩm, ưu đãi đặc biệt và tin tức qua email</label>
                         </div>
-
                         <c:if test="${not empty error}">
-                            <p style="color:red; margin-top: 10px;">${error}</p>
+                            <p style="color:red">${error}</p>
                         </c:if>
-
                         <button type="submit" class="btn">Đăng Kí</button>
 
                         <div class="footer">
-                            © 2025 DPCRM from ISP490_SU25_GR4
+                            © 2025 DPCRM from ISP490_SU25_GR4<br>
+                            Bằng cách đăng ký, bạn đồng ý với <a href="#">Điều khoản dịch vụ</a>
                         </div>
                     </form>
                 </div>

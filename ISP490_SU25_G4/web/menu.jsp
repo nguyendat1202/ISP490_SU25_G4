@@ -1,7 +1,7 @@
 <%-- 
     Document   : menu
     Created on : Jun 6, 2025, 1:54:15 PM
-    Author     : NGUYEN MINH
+    Author     : minhnhn
 --%>
 
 
@@ -34,16 +34,23 @@
             <li><a href="${pageContext.request.contextPath}/listProduct.jsp" class="${currentPage == 'listProduct' ? 'active' : ''}"><i data-feather="box"></i><span>Hàng hóa</span></a></li>
 
 
-            <c:set var="isTransactionSection" value="${currentPage == 'viewTransactions' || currentPage == 'addTransactions'}" />
+            <c:set var="isTransactionSection" value="${currentPage == 'listTransaction' || currentPage == 'addTransaction'}" />
             <li class="nav-item-dropdown ${isTransactionSection ? 'open' : ''}">
-                <a href="#" class="${isTransactionSection ? 'active' : ''}"><i data-feather="repeat"></i><span>Giao dịch</span><i data-feather="chevron-down" class="dropdown-icon"></i></a>
+                <a href="#" class="${isTransactionSection ? 'active' : ''}"><i data-feather="repeat"></i><span>Hóa đơn bảo trì</span><i data-feather="chevron-down" class="dropdown-icon"></i></a>
                 <ul class="sub-menu">
-                    <li><a href="${pageContext.request.contextPath}/viewTransactions.jsp" class="${currentPage == 'viewTransactions' ? 'active' : ''}">Xem Giao dịch</a></li>
-                    <li><a href="${pageContext.request.contextPath}/addTransactions.jsp" class="${currentPage == 'addTransactions' ? 'active' : ''}">Tạo Giao dịch</a></li>
+                    <li><a href="${pageContext.request.contextPath}/listTransaction.jsp" class="${currentPage == 'listTransaction' ? 'active' : ''}">Lịch sử</a></li>
+                    <li><a href="${pageContext.request.contextPath}/addTransaction.jsp" class="${currentPage == 'addTransaction' ? 'active' : ''}">Tạo phiếu</a></li>
                 </ul>
             </li>
-
-            <li><a href="${pageContext.request.contextPath}/listEmployee.jsp" class="${currentPage == 'listEmployee' ? 'active' : ''}"><i data-feather="briefcase"></i><span>Nhân viên</span></a></li>
+            <c:set var="isEmployeeSection" value="${currentPage == 'listEmployeeCustomer' || currentPage == 'listEmployeeTechnical' || currentPage == 'listEmployeeAdmin'}" />
+            <li class="nav-item-dropdown ${isEmployeeSection ? 'open active' : ''}">
+                <a href="#" class="${isEmployeeSection ? 'active' : ''}"><i data-feather="briefcase"></i><span>Nhân viên</span><i data-feather="chevron-down" class="dropdown-icon"></i></a>
+                <ul class="sub-menu">
+                    <li><a href="${pageContext.request.contextPath}/listEmployeeCustomer.jsp" class="${currentPage == 'listEmployeeCustomer' ? 'active' : ''}">Chăm sóc khách hàng</a></li>
+                    <li><a href="${pageContext.request.contextPath}/listEmployeeTechnical.jsp" class="${currentPage == 'listEmployeeTechnical' ? 'active' : ''}">Kỹ thuật</a></li>
+                    <li><a href="${pageContext.request.contextPath}/listEmployeeAdmin.jsp" class="${currentPage == 'listEmployeeAdmin' ? 'active' : ''}">Admin</a></li>
+                </ul>
+            </li>
 
             <%-- Mục "Báo cáo" (dropdown) --%>
             <c:set var="isReportSection" value="${currentPage == 'dailyReport' || currentPage == 'monthlyReport'}" />

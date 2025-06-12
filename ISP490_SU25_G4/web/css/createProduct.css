@@ -23,7 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .form-main-layout {
     display: flex;
-    gap: 32px; 
+    gap: 32px;
 }
 
 
@@ -107,7 +107,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .details-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px 24px; 
+    gap: 20px 24px;
 }
 
 .form-group {
@@ -117,7 +117,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .form-group.full-width {
-    grid-column: 1 / -1; 
+    grid-column: 1 / -1;
 }
 
 .form-group label {
@@ -130,7 +130,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .form-group input[type="number"],
 .form-group select,
 .form-group textarea {
-    width: 100%; 
+    width: 100%;
     border: 1px solid #CED4DA;
     border-radius: 6px;
     padding: 10px 12px;

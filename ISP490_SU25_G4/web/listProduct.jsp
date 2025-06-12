@@ -1,13 +1,14 @@
 <%-- 
     Document   : listProduct
-    Created on : Jun 8, 2025, 12:01:43 PM
-    Author     : NGUYEN MINH
+    Created on : Jun 12, 2025
+    Author     : minhnhn
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%-- Set currentPage for active menu item --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="currentPage" value="listProduct" />
+
 <!DOCTYPE html>
 <html lang="vi">
     <head>
@@ -17,11 +18,11 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Adamina&family=Be+Vietnam+Pro:wght@600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Be+Vietnam+Pro:wght@600&display=swap" rel="stylesheet">
 
         <script src="https://unpkg.com/feather-icons"></script>
 
-        <link rel="stylesheet" href="css/style.css">        
+        <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/mainMenu.css">
         <link rel="stylesheet" href="css/listProduct.css">
@@ -31,176 +32,131 @@
         <div class="app-container">
             <jsp:include page="mainMenu.jsp"/>
             <main class="main-content">
-                <header class="main-top-bar">
-                    <div class="page-title">Danh sách hàng hóa</div>
+                <header class="page-header">
+                    <div class="title-section">
+                        <div class="title">Danh sách Sản phẩm</div>
+                        <div class="breadcrumb">Sản phẩm / <span>Danh sách</span></div>
+                    </div>
                     <button class="notification-btn">
                         <i data-feather="bell"></i>
                         <span class="notification-badge"></span>
                     </button>
                 </header>
 
-                <section class="content-body">
-                    <div class="product-content-container">
-                        <div class="product-toolbar">
-                            <div class="search-filter-group">
-                                <div class="search-input-wrapper">
-                                    <div class="input-with-icon">
-                                        <input type="text" placeholder="Tìm kiếm hàng hóa">
-                                        <i data-feather="search" class="icon"></i>
-                                    </div>
+                <div class="page-content">
+                    <div class="content-card">
+                        <form action="product" method="get">
+                            <div class="table-toolbar">
+                                <div class="search-box">
+                                    <i data-feather="search" class="feather-search"></i>
+                                    <input type="text" name="searchQuery" placeholder="Tìm kiếm tên, mã SP..." value="${param.searchQuery}">
                                 </div>
-                                <%-- THAY ĐỔI: Thêm id="filterBtn" để JavaScript có thể bắt sự kiện --%>
-                                <button class="filter-button" id="filterBtn">
-                                    Bộ lọc
-                                    <i data-feather="filter" class="icon"></i>
+                                <button type="button" class="filter-button" id="filterBtn">
+                                    <i data-feather="filter"></i>
+                                    <span>Bộ lọc</span>
                                 </button>
+                                <div class="toolbar-actions">
+                                    <a href="createProduct.jsp" class="btn btn-primary"><i data-feather="plus"></i>Thêm Sản phẩm</a>
+                                    <a href="createGroupProduct.jsp" class="btn btn-primary"><i data-feather="plus-square"></i>Thêm nhóm hàng</a>
+                                </div>
                             </div>
-
-                            <div class="action-buttons-group">
-                                <a href="createProduct.jsp" class="btn-primary">
-                                    <i data-feather="plus" class="icon"></i>
-                                    <span>Thêm hàng</span>
-                                </a>
-                                <a href="#" class="btn-primary">
-                                    <i data-feather="plus" class="icon"></i>
-                                    <span>Thêm nhóm hàng</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <%-- BỔ SUNG: KHUNG BỘ LỌC CHI TIẾT (MẶC ĐỊNH SẼ ẨN) --%>
-                        <div class="filter-container" id="filterContainer" style="display: none;">
-                            <div class="filter-controls">
-                                <div class="filter-group">
-                                    <label for="minPrice">Lọc theo giá (VNĐ)</label>
-                                    <div class="price-inputs">
-                                        <input type="number" id="minPrice" placeholder="Từ">
-                                        <span>-</span>
-                                        <input type="number" id="maxPrice" placeholder="Đến">
+                            <div class="filter-container" id="filterContainer" style="display: none;">
+                                <div class="filter-controls">
+                                    <div class="filter-group">
+                                        <label>Khoảng giá (VNĐ)</label>
+                                        <div class="price-inputs">
+                                            <input type="number" name="minPrice" placeholder="Từ" value="${param.minPrice}">
+                                            <span>-</span>
+                                            <input type="number" name="maxPrice" placeholder="Đến" value="${param.maxPrice}">
+                                        </div>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label for="origin-filter">Xuất xứ</label>
+                                        <select id="origin-filter" name="originId">
+                                            <option value="">Tất cả</option>
+                                            <option value="">Nhật Bản</option>
+                                            <option value="">Mỹ</option>
+                                            <c:forEach var="origin" items="${origins}">
+                                                <option value="${origin.id}" ${param.originId == origin.id ? 'selected' : ''}>${origin.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label for="category-filter">Nhóm hàng</label>
+                                        <select id="category-filter" name="categoryId">
+                                            <option value="">Tất cả</option>
+                                            <c:forEach var="category" items="${categories}">
+                                                <option value="${category.id}" ${param.categoryId == category.id ? 'selected' : ''}>${category.name}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="filter-group">
-                                    <label for="originSelect">Xuất xứ</label>
-                                    <select id="originSelect">
-                                        <option value="">Tất cả</option>
-                                        <option value="vietnam">Việt Nam</option>
-                                        <option value="trungquoc">Trung Quốc</option>
-                                        <option value="nhatban">Nhật Bản</option>
-                                        <option value="my">Mỹ</option>
-                                    </select>
-                                </div>
-                                <div class="filter-group">
-                                    <label for="groupSelect">Nhóm hàng hóa</label>
-                                    <select id="groupSelect">
-                                        <option value="">Tất cả</option>
-                                        <option value="dientu">Điện tử</option>
-                                        <option value="thoitrang">Thời trang</option>
-                                        <option value="giadung">Gia dụng</option>
-                                    </select>
+                                <div class="filter-actions">
+                                    <a href="product" class="btn-reset-filter">Xóa lọc</a>
+                                    <button type="submit" class="btn-apply-filter">Áp dụng</button>
                                 </div>
                             </div>
-                            <div class="filter-actions">
-                                <button class="btn-reset-filter">Xóa bộ lọc</button>
-                                <button class="btn-apply-filter">Áp dụng</button>
-                            </div>
-                        </div>
+                        </form>
 
-                        <div class="product-table-wrapper">
-                            <%-- Nội dung bảng giữ nguyên... --%>
-                            <table class="product-table">
-                                <thead>
-                                    <tr>
-                                        <th class="col-stt">STT</th>
-                                        <th class="col-name">Tên hàng hóa</th>
-                                        <th class="col-group">Nhóm hàng hóa</th>
-                                        <th class="col-desc">Mô tả</th>
-                                        <th class="col-price">Giá sản phẩm</th>
-                                        <th class="col-actions">Thao tác</th>
-                                    </tr>
-                                </thead>
-                                <%--<tbody>
-                                    <tr>
-                                        <td class="col-stt">1</td>
-                                        <td class="col-name">Sản phẩm Mẫu A</td>
-                                        <td class="col-group">Điện tử</td>
-                                        <td class="col-desc">Mô tả ngắn gọn cho sản phẩm A.</td>
-                                        <td class="col-price">15.000.000đ</td>
-                                        <td class="col-actions">
-                                            <div class="action-icon-group">
-                                                <a href="#" class="action-link icon-view" title="Xem"><i data-feather="eye"></i></a>
-                                                <a href="#" class="action-link icon-edit" title="Sửa"><i data-feather="edit-2"></i></a>
-                                                <a href="#" class="action-link icon-delete" title="Xóa"><i data-feather="trash-2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-stt">2</td>
-                                        <td class="col-name">Sản phẩm Mẫu B</td>
-                                        <td class="col-group">Thời trang</td>
-                                        <td class="col-desc">Mô tả ngắn gọn cho sản phẩm B.</td>
-                                        <td class="col-price">850.000đ</td>
-                                        <td class="col-actions">
-                                            <div class="action-icon-group">
-                                                <a href="#" class="action-link icon-view" title="Xem"><i data-feather="eye"></i></a>
-                                                <a href="#" class="action-link icon-edit" title="Sửa"><i data-feather="edit-2"></i></a>
-                                                <a href="#" class="action-link icon-delete" title="Xóa"><i data-feather="trash-2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>--%>
-                                <tbody>
-                                    <%-- 
-                                        Vòng lặp này sẽ duyệt qua một danh sách có tên là "productList".
-                                        Khi backend của bạn sẵn sàng, nó sẽ có nhiệm vụ gửi danh sách này đến đây.
-                                    --%>
-                                <c:forEach var="p" items="${productList}" varStatus="loop">
-                                    <tr>
-                                        <%-- Dùng varStatus để lấy số thứ tự của vòng lặp --%>
-                                        <td class="col-stt">${loop.count}</td>
+                        <div class="product-grid">
+                            <c:if test="${empty products}">
+                                <p style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-secondary);">
+                                    Không có sản phẩm nào để hiển thị.
+                                </p>
+                            </c:if>
 
-                                        <%-- Dùng Expression Language ${} để lấy thuộc tính của đối tượng --%>
-                                        <td class="col-name">${p.productName}</td>
-                                        <td class="col-group">${p.productGroup}</td>
-                                        <td class="col-desc">${p.description}</td>
-                                        <td class="col-price">
-                                            <%-- Dùng thư viện <fmt> để định dạng giá tiền cho đẹp (vd: 15,000,000 ₫) --%>
-                                    <fmt:formatNumber value="${p.price}" type="currency" currencyCode="VND" maxFractionDigits="0"/>
-                                    </td>
-                                    <td class="col-actions">
-                                        <div class="action-icon-group">
-                                            <%-- Các link này sẽ tự động gắn ID của từng sản phẩm vào URL --%>
-                                            <a href="viewProduct?pid=${p.productID}" class="action-link icon-view" title="Xem"><i data-feather="eye"></i></a>
-                                            <a href="editProduct?pid=${p.productID}" class="action-link icon-edit" title="Sửa"><i data-feather="edit-2"></i></a>
-                                            <a href="deleteProduct?pid=${p.productID}" class="action-link icon-delete" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');"><i data-feather="trash-2"></i></a>
+                            <%-- Vòng lặp JSTL để hiển thị dữ liệu sản phẩm động --%>
+                            <c:forEach var="product" items="${products}">
+                                <div class="product-card">
+                                    <div class="card-image">
+                                        <a href="productDetail?id=${product.id}">
+                                            <img src="${not empty product.imageUrl ? product.imageUrl : 'https://placehold.co/400x300/E0E0E0/A4A4A4?text=No+Image'}" 
+                                                 alt="${product.name}">
+                                        </a>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-header">
+                                            <a href="productDetail?id=${product.id}" class="product-name-link">
+                                                <span class="product-name-header">${product.name}</span>
+                                            </a>
+                                            <span class="status-pill ${product.statusClass}">${product.statusText}</span>
                                         </div>
-                                    </td>
-                                    </tr>
-                                </c:forEach>
-
-                                <%-- 
-                                    Đoạn mã này dùng để hiển thị một thông báo thân thiện 
-                                    khi danh sách "productList" rỗng hoặc không tồn tại.
-                                --%>
-                                <c:if test="${empty productList}">
-                                    <tr>
-                                        <td colspan="6" style="text-align: center; padding: 40px;">Chưa có dữ liệu sản phẩm.</td>
-                                    </tr>
-                                </c:if>
-                                </tbody>
-                            </table>
+                                        <div class="card-body">
+                                            <div class="card-info-row">
+                                                <i data-feather="tag"></i>
+                                                <span class="info-value">Mã: ${product.productCode}</span>
+                                            </div>
+                                            <div class="card-info-row">
+                                                <i data-feather="layers"></i>
+                                                <span class="info-value">Danh mục: ${product.categoryName}</span>
+                                            </div>
+                                            <div class="card-info-row">
+                                                <i data-feather="package"></i>
+                                                <span class="info-value">Xuất xứ: ${product.productOrigin}</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="product-price-footer">
+                                                <i data-feather="dollar-sign"></i>
+                                                <span><fmt:formatNumber value="${product.price}" type="currency" currencyCode="VND"/></span>
+                                            </div>
+                                            <div class="action-buttons">
+                                                <a href="productDetail?id=${product.id}" title="Xem chi tiết"><i data-feather="eye" class="icon-view"></i></a>
+                                                <a href="editProduct?id=${product.id}" title="Sửa"><i data-feather="edit-2" class="icon-edit"></i></a>
+                                                <a href="deleteProduct?id=${product.id}" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm \'${product.name}\'?')" title="Xóa"><i data-feather="trash-2" class="icon-delete"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
-                    </div>
 
-                    <jsp:include page="pagination.jsp" />
-                </section>
+                        <jsp:include page="pagination.jsp"/>
+                    </div>
+                </div>
             </main>
         </div>
-
-        <script>
-            feather.replace();
-        </script>
-        <script src="js/filterProduct.js"></script>
-
+        <script src="js/listProduct.js"></script>
         <script src="js/mainMenu.js"></script>
     </body>
 </html>

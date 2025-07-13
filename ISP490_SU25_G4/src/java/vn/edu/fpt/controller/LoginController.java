@@ -82,10 +82,27 @@ public class LoginController extends HttpServlet {
         User user = dao.login(email, password);
 
         if (user != null) {
-            // Đăng nhập thành công
-            HttpSession session = request.getSession(); // Tạo session mới nếu chưa có
-            session.setAttribute("user", user); // Lưu đối tượng User vào session
-            response.sendRedirect("dashboard.jsp"); // Chuyển hướng đến trang dashboard
+            // **BẮT ĐẦU PHẦN CODE ĐƯỢC TỐI ƯU**
+
+            // Giờ đây, roleName đã có sẵn trong đối tượng user, không cần gọi RoleDAO nữa.
+            String roleName = user.getRoleName();
+
+            // Kiểm tra xem vai trò có tồn tại không
+            if (roleName != null && !roleName.isEmpty()) {
+                // Đăng nhập thành công, có vai trò hợp lệ
+                HttpSession session = request.getSession(); // Tạo session mới nếu chưa có
+                session.setAttribute("user", user); // Lưu đối tượng User vào session
+
+                // Lưu TÊN VAI TRÒ vào session (lấy trực tiếp từ đối tượng user)
+                session.setAttribute("userRole", roleName);
+
+                response.sendRedirect("dashboard.jsp"); // Chuyển hướng đến trang dashboard
+            } else {
+                // Lỗi: Người dùng có tồn tại nhưng vai trò không hợp lệ 
+                request.setAttribute("error", "Lỗi: Vai trò của người dùng không xác định. Vui lòng liên hệ quản trị viên.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
+            // **KẾT THÚC PHẦN CODE ĐƯỢC TỐI ƯU**
         } else {
             // Đăng nhập thất bại
             request.setAttribute("error", "Email hoặc mật khẩu không đúng!");

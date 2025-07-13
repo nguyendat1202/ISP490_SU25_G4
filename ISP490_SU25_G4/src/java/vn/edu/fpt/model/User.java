@@ -25,6 +25,7 @@ public class User {
     private LocalDate dateOfBirth;
     private String gender;
     private String identityCardNumber;
+    private int roleId;
     private String notes;
     private String status;
     private Timestamp createdAt;
@@ -226,5 +227,15 @@ public class User {
     public void setProvinceName(String provinceName) {
         this.provinceName = provinceName;
     }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+    
+    
 
 }

@@ -99,6 +99,9 @@ public class UserDAO {
                         user.setCreatedAt(rs.getTimestamp("created_at"));
                         user.setUpdatedAt(rs.getTimestamp("updated_at"));
 
+                        user.setRoleId(rs.getInt("role_id"));
+                        user.setRoleName(rs.getString("role_name"));
+
                         // Lấy thông tin từ các bảng đã JOIN
                         user.setRoleName(rs.getString("role_name"));
                         user.setPositionName(rs.getString("position_name"));
